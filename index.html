@@ -222,12 +222,12 @@
       color: #79555f;
     }
     .icon-label {
-      font-family: var(--file-font);
+      font-family: var(--ui-font);
       font-size: 20px;
-      color: #71555f;
+      color: #ffffff;
       line-height: 1.1;
       max-width: 106px;
-      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+      text-shadow: 0 1px 4px rgb(0 0 0);
     }
 
     .widget {
@@ -250,12 +250,6 @@
       color: var(--muted);
       font-weight: 800;
       margin-bottom: 10px;
-    }
-    .widget-note {
-      font-family: var(--script-font);
-      font-size: 36px;
-      color: var(--pink-deep);
-      margin-bottom: 8px;
     }
     .widget ul {
       list-style: none;
@@ -395,7 +389,7 @@
     }
     .hero-sub {
       color: var(--pink-deep);
-      font-weight: 700;
+      font-weight: 200;
       margin-bottom: 18px;
       font-family: var(--ui-font);
     }
@@ -498,7 +492,23 @@
       line-height: 1.6;
       margin-top: 10px;
     }
+.dk-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.3);
+  
+  font-family: "Yessy";
+  font-size: 420px;
 
+  color: #e7a7b7;
+  opacity: 0.28;
+
+  pointer-events: none;
+  z-index: 0;
+
+  user-select: none;
+}
     @media (max-width: 900px) {
       .desktop { padding: 18px 18px calc(var(--dock-h) + 12px); }
       .widget { display: none; }
@@ -517,13 +527,13 @@
       <svg class="watermark-heart" viewBox="0 0 300 250" aria-hidden="true">
         <path d="M150 223 C135 205, 35 142, 35 79 C35 38, 66 17, 98 17 C124 17, 142 31, 150 47 C158 31, 176 17, 202 17 C234 17, 265 38, 265 79 C265 142, 165 205, 150 223Z"></path>
       </svg>
-      <div class="watermark-swash-left">{</div>
+      <div class="watermark-swash-left"><</div>
       <div class="watermark-dk">DK</div>
-      <div class="watermark-swash-right">}</div>
+      <div class="watermark-swash-right">></div>
     </div>
 
     <div class="topbar">
-      <div class="brand"><span class="mono">DK</span> Deserez OS v1.0</div>
+      <div class="brand"><span class="mono">Dk</span> Deserez OS v1.0</div>
       <div class="clock" id="clock">--:--</div>
     </div>
 
@@ -537,7 +547,7 @@
         <span class="icon-label">Projects</span>
       </button>
       <button class="icon" data-window="bots">
-        <span class="icon-emoji fallout"><i class="gi gi-pipboy"></i></span>
+        <span class="icon-emoji"><i class="icofont-robot-face"></i></span>
         <span class="icon-label">Bots</span>
       </button>
       <button class="icon" data-window="apps">
@@ -560,8 +570,7 @@
 
     <aside class="widget">
       <div class="widget-title">Now Building</div>
-      <div class="widget-note">Deserez.dev</div>
-      <ul>
+       <ul>
         <li>❤️ Fisto Unit</li>
         <li>❤️ Hashirama</li>
         <li>❤️ Lunaria</li>
