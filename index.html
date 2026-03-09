@@ -4,26 +4,70 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deserez OS</title>
+  <link href="https://file.garden/ZpA9El5gR2LIe6l8/game_icons.css" rel="stylesheet" />
+  <link href="https://file.garden/ZpA9El5gR2LIe6l8/icofont.css" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: "Yessy";
+      src: url("./fonts/Yessy Font by Situjuh (7NTypes).otf") format("opentype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Girly";
+      src: url("./fonts/Girly.otf") format("opentype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Protofo";
+      src: url("./fonts/Protofo-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Protofo";
+      src: url("./fonts/Protofo-Bold.otf") format("opentype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Protofo";
+      src: url("./fonts/Protofo-RegularItalic.otf") format("opentype");
+      font-style: italic;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Fixedersys";
+      src: url("./fonts/FixederSys1x.ttf") format("truetype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "BrushPip";
+      src: url("./fonts/JH_FALLOUT.TTF") format("truetype");
+      font-display: swap;
+    }
+
     :root {
       --bg-1: #fff7fb;
       --bg-2: #f9eef4;
-      --panel: rgba(255, 252, 254, 0.82);
-      --panel-strong: rgba(255, 249, 252, 0.95);
+      --panel: rgba(255, 252, 254, 0.86);
+      --panel-strong: rgba(255, 249, 252, 0.96);
       --line: #ead7df;
       --text: #2d2228;
       --muted: #7f6974;
       --pink: #d8a5b5;
       --pink-deep: #b97f95;
       --pink-soft: #f6e5ec;
+      --white-soft: rgba(255,255,255,0.58);
       --shadow: 0 18px 50px rgba(174, 122, 143, 0.16);
       --radius: 22px;
       --radius-sm: 16px;
       --dock-h: 84px;
-      --sidebar-w: 120px;
-      --title-font: Georgia, "Times New Roman", serif;
-      --ui-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --script-font: "Brush Script MT", "Lucida Handwriting", cursive;
+      --title-font: "Protofo", Georgia, serif;
+      --ui-font: "Protofo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --script-font: "Yessy", cursive;
+      --file-font: "Girly", cursive;
+      --pip-font: "BrushPip", "Fixedersys", monospace;
+      --terminal-font: "Fixedersys", monospace;
     }
 
     * { box-sizing: border-box; }
@@ -34,6 +78,8 @@
       font-family: var(--ui-font);
       color: var(--text);
       background:
+        linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16)),
+        url("./assets/background-desktop.png") center/cover no-repeat,
         radial-gradient(circle at top left, rgba(255,255,255,0.95), rgba(255,255,255,0) 35%),
         radial-gradient(circle at bottom right, rgba(245,221,231,0.7), rgba(245,221,231,0) 28%),
         linear-gradient(135deg, var(--bg-1), var(--bg-2));
@@ -51,7 +97,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.18;
+      opacity: 0.34;
     }
     .watermark-heart {
       position: absolute;
@@ -59,17 +105,31 @@
       top: 5%;
       width: 420px;
       height: 320px;
-      fill: rgba(216, 165, 181, 0.28);
+      fill: rgba(216, 165, 181, 0.18);
+      filter: blur(0.2px);
     }
     .watermark-dk {
       position: absolute;
-      right: 11%;
-      top: 8%;
+      right: 8.5%;
+      top: 6%;
       font-family: var(--script-font);
-      font-size: 180px;
+      font-size: 210px;
       line-height: 1;
-      color: rgba(185, 127, 149, 0.22);
+      color: rgba(185, 127, 149, 0.20);
+      text-shadow: 0 0 18px rgba(255,255,255,0.22);
+      letter-spacing: 0.02em;
     }
+    .watermark-swash-left,
+    .watermark-swash-right {
+      position: absolute;
+      top: 11.5%;
+      font-family: var(--script-font);
+      font-size: 140px;
+      line-height: 1;
+      color: rgba(185, 127, 149, 0.13);
+    }
+    .watermark-swash-left { right: 27%; }
+    .watermark-swash-right { right: 0.5%; }
 
     .topbar {
       position: relative;
@@ -79,8 +139,8 @@
       align-items: center;
       padding: 14px 18px;
       border: 1px solid rgba(234, 215, 223, 0.9);
-      background: rgba(255, 252, 254, 0.55);
-      backdrop-filter: blur(14px);
+      background: rgba(255, 252, 254, 0.45);
+      backdrop-filter: blur(18px);
       border-radius: 18px;
       box-shadow: 0 8px 24px rgba(180, 129, 149, 0.08);
       margin-bottom: 22px;
@@ -97,7 +157,7 @@
     }
     .brand .mono {
       font-family: var(--script-font);
-      font-size: 28px;
+      font-size: 30px;
       letter-spacing: 0;
       text-transform: none;
       color: var(--pink-deep);
@@ -107,14 +167,15 @@
       font-size: 13px;
       color: var(--muted);
       font-weight: 600;
+      font-family: var(--ui-font);
     }
 
     .desktop-grid {
       position: relative;
       z-index: 2;
       display: grid;
-      grid-template-columns: repeat(2, 112px);
-      grid-auto-rows: 118px;
+      grid-template-columns: repeat(2, 120px);
+      grid-auto-rows: 128px;
       gap: 16px 18px;
       align-content: start;
       width: max-content;
@@ -122,7 +183,7 @@
     }
 
     .icon {
-      width: 112px;
+      width: 120px;
       padding: 10px 8px;
       border-radius: 18px;
       display: flex;
@@ -133,40 +194,51 @@
       cursor: pointer;
       transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
       text-align: center;
+      text-decoration: none;
+      color: inherit;
+      border: none;
+      background: transparent;
     }
     .icon:hover {
-      background: rgba(255,255,255,0.45);
+      background: rgba(255,255,255,0.38);
       box-shadow: 0 10px 24px rgba(181,127,147,0.12);
       transform: translateY(-2px);
     }
     .icon-emoji {
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       display: grid;
       place-items: center;
       border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(247,230,237,0.9));
       border: 1px solid rgba(234, 215, 223, 0.9);
       box-shadow: 0 10px 20px rgba(181,127,147,0.10);
-      font-size: 28px;
+      font-size: 26px;
+      color: #71555f;
+    }
+    .icon-emoji.fallout {
+      font-family: var(--pip-font);
+      font-size: 24px;
+      color: #79555f;
     }
     .icon-label {
-      font-size: 12px;
-      color: #5f4c55;
-      font-weight: 700;
-      line-height: 1.3;
-      max-width: 100px;
+      font-family: var(--file-font);
+      font-size: 20px;
+      color: #71555f;
+      line-height: 1.1;
+      max-width: 106px;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.5);
     }
 
     .widget {
       position: absolute;
       right: 28px;
       bottom: calc(var(--dock-h) + 28px);
-      width: 280px;
+      width: 300px;
       z-index: 2;
       border-radius: 24px;
       border: 1px solid rgba(234, 215, 223, 0.95);
-      background: rgba(255, 250, 252, 0.72);
+      background: rgba(255, 250, 252, 0.62);
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
       padding: 18px 18px 16px;
@@ -180,8 +252,8 @@
       margin-bottom: 10px;
     }
     .widget-note {
-      font-family: var(--title-font);
-      font-size: 24px;
+      font-family: var(--script-font);
+      font-size: 36px;
       color: var(--pink-deep);
       margin-bottom: 8px;
     }
@@ -228,13 +300,13 @@
       background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(246,229,236,.95));
       border: 1px solid rgba(234, 215, 223, 0.9);
       cursor: pointer;
-      font-size: 24px;
+      font-size: 22px;
       box-shadow: 0 10px 20px rgba(181,127,147,0.08);
     }
 
     .window {
       position: absolute;
-      width: min(720px, calc(100vw - 140px));
+      width: min(760px, calc(100vw - 140px));
       min-width: 320px;
       min-height: 220px;
       max-height: calc(100vh - 170px);
@@ -245,6 +317,11 @@
       box-shadow: var(--shadow);
       overflow: hidden;
       z-index: 10;
+      animation: windowIn .26s ease;
+    }
+    @keyframes windowIn {
+      from { transform: scale(.96) translateY(8px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
     .window.hidden { display: none; }
     .window-header {
@@ -274,6 +351,7 @@
       border: 1px solid rgba(234, 215, 223, 0.9);
       font-size: 18px;
       flex: none;
+      color: #6d4e5b;
     }
     .window-title {
       font-size: 13px;
@@ -284,6 +362,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      font-family: var(--ui-font);
     }
     .window-controls {
       display: flex;
@@ -309,7 +388,7 @@
 
     .hero-name {
       font-family: var(--title-font);
-      font-size: 28px;
+      font-size: 30px;
       line-height: 1.2;
       margin: 0 0 6px;
       color: #4a3a41;
@@ -318,12 +397,14 @@
       color: var(--pink-deep);
       font-weight: 700;
       margin-bottom: 18px;
+      font-family: var(--ui-font);
     }
     .copy, .project-card p, .resume-card p {
       font-size: 14px;
       line-height: 1.75;
       color: #42353b;
       margin: 0 0 14px;
+      font-family: var(--ui-font);
     }
     .eyebrow {
       font-size: 11px;
@@ -332,6 +413,7 @@
       color: var(--muted);
       font-weight: 800;
       margin: 0 0 12px;
+      font-family: var(--ui-font);
     }
     .pill-row {
       display: flex;
@@ -347,6 +429,7 @@
       color: #5d4a52;
       font-size: 12px;
       font-weight: 700;
+      font-family: var(--ui-font);
     }
     .project-grid {
       display: grid;
@@ -363,9 +446,10 @@
     .project-card h3 {
       margin: 0 0 8px;
       font-size: 14px;
-      letter-spacing: .06em;
+      letter-spacing: .05em;
       text-transform: uppercase;
       color: #4f3e45;
+      font-family: var(--ui-font);
     }
     .resume-card {
       border-radius: 18px;
@@ -385,6 +469,7 @@
       font-weight: 700;
       background: rgba(255,255,255,0.9);
       border: 1px solid rgba(216,165,181,0.35);
+      font-family: var(--ui-font);
     }
     .contact-list {
       display: grid;
@@ -397,15 +482,30 @@
       border: 1px solid rgba(234,215,223,.95);
       background: rgba(255,255,255,0.72);
       font-size: 14px;
+      font-family: var(--ui-font);
     }
     .contact-item a { color: #7a5160; text-decoration: none; font-weight: 700; }
+    .fisto-copy {
+      font-family: var(--terminal-font);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: #5a4750;
+      background: rgba(251,244,247,0.9);
+      border: 1px dashed rgba(185,127,149,0.35);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
 
     @media (max-width: 900px) {
       .desktop { padding: 18px 18px calc(var(--dock-h) + 12px); }
-      .content-mobile-note { display: block; }
       .widget { display: none; }
       .watermark-heart { right: auto; left: 50%; transform: translateX(-50%); width: 320px; }
-      .watermark-dk { right: auto; left: 50%; transform: translateX(-50%); font-size: 140px; }
+      .watermark-dk { right: auto; left: 50%; transform: translateX(-50%); font-size: 160px; }
+      .watermark-swash-left,
+      .watermark-swash-right { display: none; }
       .desktop-grid { grid-template-columns: repeat(2, 104px); }
       .window { width: calc(100vw - 30px); max-height: calc(100vh - 140px); }
     }
@@ -417,7 +517,9 @@
       <svg class="watermark-heart" viewBox="0 0 300 250" aria-hidden="true">
         <path d="M150 223 C135 205, 35 142, 35 79 C35 38, 66 17, 98 17 C124 17, 142 31, 150 47 C158 31, 176 17, 202 17 C234 17, 265 38, 265 79 C265 142, 165 205, 150 223Z"></path>
       </svg>
+      <div class="watermark-swash-left">{</div>
       <div class="watermark-dk">DK</div>
+      <div class="watermark-swash-right">}</div>
     </div>
 
     <div class="topbar">
@@ -427,31 +529,31 @@
 
     <div class="desktop-grid">
       <button class="icon" data-window="about">
-        <span class="icon-emoji">📄</span>
+        <span class="icon-emoji"><i class="icofont-notepad"></i></span>
         <span class="icon-label">About.txt</span>
       </button>
       <button class="icon" data-window="projects">
-        <span class="icon-emoji">📁</span>
+        <span class="icon-emoji"><i class="icofont-folder"></i></span>
         <span class="icon-label">Projects</span>
       </button>
       <button class="icon" data-window="bots">
-        <span class="icon-emoji">🤖</span>
+        <span class="icon-emoji fallout"><i class="gi gi-pipboy"></i></span>
         <span class="icon-label">Bots</span>
       </button>
       <button class="icon" data-window="apps">
-        <span class="icon-emoji">🌙</span>
+        <span class="icon-emoji"><i class="icofont-moon"></i></span>
         <span class="icon-label">Apps</span>
       </button>
       <button class="icon" data-window="resume">
-        <span class="icon-emoji">📄</span>
+        <span class="icon-emoji"><i class="icofont-file-pdf"></i></span>
         <span class="icon-label">Resume.pdf</span>
       </button>
       <button class="icon" data-window="contact">
-        <span class="icon-emoji">💌</span>
+        <span class="icon-emoji"><i class="icofont-envelope-open"></i></span>
         <span class="icon-label">Contact</span>
       </button>
       <a class="icon" href="https://github.com/deserez" target="_blank" rel="noreferrer">
-        <span class="icon-emoji">🌐</span>
+        <span class="icon-emoji"><i class="icofont-github"></i></span>
         <span class="icon-label">GitHub</span>
       </a>
     </div>
@@ -471,7 +573,7 @@
     <section class="window" id="window-about" style="left: 180px; top: 130px;">
       <div class="window-header">
         <div class="window-title-wrap">
-          <div class="window-icon">📄</div>
+          <div class="window-icon"><i class="icofont-notepad"></i></div>
           <div class="window-title">About.txt</div>
         </div>
         <div class="window-controls">
@@ -500,7 +602,7 @@
 
     <section class="window hidden" id="window-projects" style="left: 260px; top: 110px;">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon">📁</div><div class="window-title">Projects</div></div>
+        <div class="window-title-wrap"><div class="window-icon"><i class="icofont-folder"></i></div><div class="window-title">Projects</div></div>
         <div class="window-controls">
           <button class="ctrl min" data-action="minimize"></button>
           <button class="ctrl max" data-action="focus"></button>
@@ -514,6 +616,7 @@
             <h3>Fisto Unit</h3>
             <p>Fallout-inspired Discord RPG bot with raids, perks, shops, inventory systems, progression, and caps economy.</p>
             <div class="pill-row"><span class="pill">Node.js</span><span class="pill">Discord.js</span><span class="pill">SQLite</span></div>
+            <div class="fisto-copy">robco industries unified operating system // wasteland protocol engaged</div>
           </article>
           <article class="project-card">
             <h3>Hashirama</h3>
@@ -536,7 +639,7 @@
 
     <section class="window hidden" id="window-bots" style="left: 220px; top: 170px;">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon">🤖</div><div class="window-title">Bots</div></div>
+        <div class="window-title-wrap"><div class="window-icon"><i class="gi gi-pipboy"></i></div><div class="window-title">Bots</div></div>
         <div class="window-controls">
           <button class="ctrl min" data-action="minimize"></button>
           <button class="ctrl max" data-action="focus"></button>
@@ -545,8 +648,9 @@
       </div>
       <div class="window-body">
         <article class="project-card">
-          <h3>Fisto Unit</h3>
+          <h3>Fisto</h3>
           <p>Built as an immersive Fallout-inspired bot with interactive systems, loot, economy loops, and raid mechanics.</p>
+          <div class="fisto-copy">status // online ♥ modules // raids, economy, loot, progression</div>
         </article>
         <article class="project-card" style="margin-top:14px;">
           <h3>Hashirama</h3>
@@ -557,7 +661,7 @@
 
     <section class="window hidden" id="window-apps" style="left: 300px; top: 190px;">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon">🌙</div><div class="window-title">Apps</div></div>
+        <div class="window-title-wrap"><div class="window-icon"><i class="icofont-moon"></i></div><div class="window-title">Apps</div></div>
         <div class="window-controls">
           <button class="ctrl min" data-action="minimize"></button>
           <button class="ctrl max" data-action="focus"></button>
@@ -574,7 +678,7 @@
 
     <section class="window hidden" id="window-resume" style="left: 160px; top: 90px; width: min(780px, calc(100vw - 120px));">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon">📄</div><div class="window-title">Resume.pdf</div></div>
+        <div class="window-title-wrap"><div class="window-icon"><i class="icofont-file-pdf"></i></div><div class="window-title">Resume.pdf</div></div>
         <div class="window-controls">
           <button class="ctrl min" data-action="minimize"></button>
           <button class="ctrl max" data-action="focus"></button>
@@ -593,7 +697,7 @@
 
     <section class="window hidden" id="window-contact" style="left: 340px; top: 150px; width: min(520px, calc(100vw - 100px));">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon">💌</div><div class="window-title">Contact</div></div>
+        <div class="window-title-wrap"><div class="window-icon"><i class="icofont-envelope-open"></i></div><div class="window-title">Contact</div></div>
         <div class="window-controls">
           <button class="ctrl min" data-action="minimize"></button>
           <button class="ctrl max" data-action="focus"></button>
@@ -604,7 +708,7 @@
         <div class="contact-list">
           <div class="contact-item">Email: <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a></div>
           <div class="contact-item">GitHub: <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a></div>
-          <div class="contact-item">Portfolio: GitHub Pages site in progress ❤️</div>
+          <div class="contact-item">Portfolio: Deserez OS now live ❤️</div>
         </div>
       </div>
     </section>
@@ -646,7 +750,7 @@
         const item = document.createElement('button');
         item.className = 'dock-item';
         item.title = win.querySelector('.window-title').textContent;
-        item.textContent = win.querySelector('.window-icon').textContent;
+        item.textContent = win.querySelector('.window-icon').textContent.trim() || '•';
         item.addEventListener('click', () => focusWindow(win));
         dock.appendChild(item);
       });
