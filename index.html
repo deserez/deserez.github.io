@@ -311,6 +311,9 @@
       box-shadow: 0 26px 70px rgba(122, 82, 99, 0.23);
     }
     .window.hidden { display: none; }
+    #window-about {
+      width: min(900px, calc(100vw - 96px));
+    }
     @keyframes windowIn {
       from { opacity: 0; transform: scale(.98) translateY(8px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
@@ -375,6 +378,9 @@
       overflow: auto;
       padding: 22px;
     }
+    #window-about .window-body {
+      max-height: calc(100vh - 190px);
+    }
 
     .hero-name {
       margin: 0 0 8px;
@@ -395,11 +401,40 @@
       font-size: 14px;
       line-height: 1.7;
     }
+    .about-role {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: #8d4f64;
+      font-size: clamp(15px, 2.2vw, 21px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+    .about-role span {
+      padding: 6px 9px;
+      border: 1px solid rgba(183, 119, 141, 0.24);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: 0 8px 18px rgba(122, 82, 99, 0.07);
+    }
+    .text-mark {
+      padding: 1px 5px 2px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 42%, rgba(236, 209, 139, 0.42) 42%);
+      color: #6d3f50;
+      font-weight: 800;
+    }
     .split {
       display: grid;
       grid-template-columns: minmax(0, 1.4fr) minmax(210px, .8fr);
       gap: 16px;
       align-items: start;
+    }
+    .about-visual {
+      display: grid;
+      gap: 12px;
+      align-content: start;
     }
     .callout {
       padding: 16px;
@@ -457,15 +492,22 @@
     .pill {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       min-height: 30px;
       padding: 7px 11px;
       border: 1px solid rgba(183, 119, 141, 0.28);
-      border-radius: 999px;
-      background: var(--rose-soft);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.72);
       color: #59464f;
       font-size: 12px;
       font-weight: 700;
       line-height: 1.15;
+      text-align: center;
+    }
+    .about-visual .pill-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 0;
     }
     .project-grid {
       display: grid;
@@ -741,6 +783,7 @@
     @media (max-width: 980px) {
       .profile-widget { display: none; }
       .window { width: calc(100vw - 42px); }
+      #window-about { width: calc(100vw - 42px); }
       .split { grid-template-columns: 1fr; }
     }
     @media (max-width: 700px) {
@@ -785,6 +828,7 @@
         margin-top: 16px;
         border-radius: 18px;
       }
+      #window-about { width: 100%; }
       .window.hidden { display: none; }
       .window-header { cursor: default; }
       .window-body { max-height: none; padding: 18px; }
@@ -881,19 +925,18 @@
       <div class="window-body">
         <div class="split">
           <div>
-            <p class="eyebrow">Developer / Writer / Systems Builder</p>
+            <p class="eyebrow about-role"><span>Developer</span><span>Writer</span><span>Systems Builder</span></p>
             <h1 class="hero-name">Deserez Krentz</h1>
-            <p class="hero-sub">Creative Systems Developer building community tools with structure, personality, and polish.</p>
-            <p class="copy">I make “that shouldn’t be possible” behave.</p>
-
- <p class="copy">For nearly twenty years, I’ve been writing, coding, designing, debugging, worldbuilding, and building tools for online communities, games, forums, and Discord servers. My work sits somewhere between developer, writer, systems designer, community architect, and professional problem gremlin.</p>
-
- <p class="copy">I specialize in Discord bots, custom web layouts, forum systems, workflow automation, documentation, dashboards, and interactive tools that turn messy systems into something people can actually use.</p>
-
- <p class="copy">A lot of my best projects start with someone saying, “I don’t think that can be done.” A cursed parser, a fragile forum engine, a complicated rule system, a Discord workflow with too many moving parts — that’s usually where I get interested.</p>
-
- <p class="copy">My favorite work lives where logic and personality meet: bots with a voice, templates that make staff work easier, dashboards that organize chaos, and systems that make impossible ideas feel obvious once they exist.</p>
- 
+            <p class="hero-sub">I make <span class="text-mark">&ldquo;that shouldn&rsquo;t be possible&rdquo;</span> behave.</p>
+            <p class="copy">For nearly twenty years, I&rsquo;ve been writing, coding, designing, debugging, worldbuilding, and building tools for online communities, games, forums, and Discord servers. My work sits somewhere between <span class="text-mark">developer</span>, <span class="text-mark">writer</span>, systems designer, community architect, and professional problem gremlin.</p>
+            <p class="copy">I specialize in <span class="text-mark">Discord bots</span>, <span class="text-mark">custom web layouts</span>, forum systems, workflow automation, documentation, dashboards, and interactive tools that turn messy systems into something people can actually use.</p>
+            <p class="copy">A lot of my best projects start with someone saying, &ldquo;I don&rsquo;t think that can be done.&rdquo; A cursed parser, a fragile forum engine, a complicated rule system, a Discord workflow with too many moving parts &mdash; that&rsquo;s usually where I get interested.</p>
+            <p class="copy">My favorite work lives where <span class="text-mark">logic and personality meet</span>: bots with a voice, templates that make staff work easier, dashboards that organize chaos, and systems that make impossible ideas feel obvious once they exist.</p>
+          </div>
+          <aside class="about-visual">
+            <div class="about-photo">
+              <img src="./assets/about-portrait.jpg" alt="Portrait of Deserez Krentz" onerror="this.parentElement.classList.add('is-missing'); this.remove();">
+            </div>
             <div class="pill-row" aria-label="Core skills">
               <span class="pill">HTML</span>
               <span class="pill">CSS</span>
@@ -905,9 +948,6 @@
               <span class="pill">Prompt Engineering</span>
               <span class="pill">Technical Writing</span>
             </div>
-          </div>
-          <aside class="about-photo">
-            <img src="./assets/about-portrait.jpg" alt="Portrait of Deserez Krentz" onerror="this.parentElement.classList.add('is-missing'); this.remove();">
           </aside>
         </div>
       </div>
