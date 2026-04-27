@@ -1367,86 +1367,1768 @@
       ledger: {
         title: "Iwagakure Treasury Register",
         desc: "Representative source structure for the treasury/resource registry: tab inputs, data sets, calculated totals, and rendered logs.",
-        code: `<div class="shinobiViewport">
+        code: `<link rel="stylesheet" type="text/css" href="https://files.jcink.net/uploads2/melonsvault/shinobiViewport5.css">
+<link href="https://solrainha.github.io/honeybee/honeybee.css" rel="stylesheet"> <link rel="stylesheet" type="text/css" href="https://files.jcink.net/uploads2/melonsvault/iwaledgercss.css">
+<div class="shinobiViewport">
   <div class="shinobiStat village-iwa iwaLedgerPage">
-    <input type="radio" name="iwaLedgerTab" id="iwaTabTreasury" checked>
-    <input type="radio" name="iwaLedgerTab" id="iwaTabMines">
-    <input type="radio" name="iwaLedgerTab" id="iwaTabCorps">
+    <div class="shinobiShell iwaLedgerShell">
 
-    <div class="iwaLedgerTabs">
-      <label for="iwaTabTreasury">Treasury</label>
-      <label for="iwaTabMines">Hannya Mines</label>
-      <label for="iwaTabCorps">Explosion Corps</label>
-    </div>
+      <input type="radio" class="iwaLedgerToggle" name="iwaLedgerTab" id="iwaTabTreasury" checked>
+      <input type="radio" class="iwaLedgerToggle" name="iwaLedgerTab" id="iwaTabMines">
+      <input type="radio" class="iwaLedgerToggle" name="iwaLedgerTab" id="iwaTabCorps">
+      <input type="radio" class="iwaLedgerToggle" name="iwaLedgerTab" id="iwaTabIntel">
+      <input type="radio" class="iwaLedgerToggle" name="iwaLedgerTab" id="iwaTabTemplates">
+      <input type="checkbox" class="iwaNotesToggle" id="iwaNotesTreasury">
 
-    <section class="iwaPaneTreasury">
-      <div id="iwaRyoDisplay">0</div>
-      <div id="iwaRyoLog"></div>
-    </section>
-
-    <div class="iwaDataSet" data-set="treasury">
-      <div class="iwaEntry" data-type="claim" data-amount="131250">
-        <div class="iwaEntryLabel">Weekly village income</div>
-        <div class="iwaEntryNote">2026-03-29 • 4 Legitimacy</div>
-      </div>
-      <div class="iwaEntry" data-type="purchase" data-amount="525000">
-        <div class="iwaEntryLabel">Hannya Mine</div>
-        <div class="iwaEntryNote">Purchase link / source</div>
-      </div>
-    </div>
-  </div>
-</div>
-
-function renderTreasury(root) {
-  let claims = 0;
-  let purchases = 0;
-  root.querySelectorAll('[data-set="treasury"] .iwaEntry').forEach(entry => {
-    const amount = Number(entry.dataset.amount || 0);
-    if (entry.dataset.type === "claim") claims += amount;
-    if (entry.dataset.type === "purchase") purchases += amount;
-  });
-  root.querySelector("#iwaRyoDisplay").textContent =
-    (claims - purchases).toLocaleString();
-}`
-      },
-      nations: {
-        title: "Five Great Nations Forum Rows",
-        desc: "Expandable forum-row layout pattern with nation colors, recent-post metadata, image overlays, hover expansion, and mobile fallback.",
-        code: `<div class="greatNationsGrid">
-  <div class="forumrow group-1">
-    <a href="#" class="nationMock nation-fire">
-      <div class="nationMockImage"></div>
-      <div class="nationMockName">land of fire</div>
-      <div class="nationRecent">
-        <div class="nationRecentAvatar"></div>
-        <div class="nationRecentInfo">
-          <div class="nationRecentTopic">embers over the valley</div>
-          <div class="nationRecentUser">username here</div>
+      <div class="iwaLedgerHead">
+        <div class="iwaLedgerHero">
+          <div class="iwaLedgerTitle">
+            <div class="iwaLedgerKicker">Village Ledger</div>
+            <h1><strong>Iwagakure</strong> Treasury & Resource Register</h1>
+            <div class="iwaLedgerSub" id="iwaLedgerEdited">last edited [date] by [name]</div>
+          </div>
+          <div class="iwaLedgerSeal"></div>
         </div>
       </div>
-    </a>
+
+      <div class="iwaLedgerTabs">
+        <label class="iwaLedgerTab" for="iwaTabTreasury"><span>Treasury</span></label>
+        <label class="iwaLedgerTab" for="iwaTabMines"><span>Hannya Mines</span></label>
+        <label class="iwaLedgerTab" for="iwaTabCorps"><span>Explosion Corps</span></label>
+        <label class="iwaLedgerTab" for="iwaTabIntel"><span>Intelligence</span></label>
+        <label class="iwaLedgerTab" for="iwaTabTemplates"><span>Templates</span></label>
+      </div>
+
+      <div class="iwaLedgerBody">
+        <section class="iwaLedgerPane iwaPaneTreasury">
+          <div class="iwaLedgerGrid">
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Village Ryō</div>
+                <div class="iwaLedgerTotal"><div class="iwaLedgerTotal__value" id="iwaRyoDisplay">0</div></div>
+                <div class="iwaLedgerMini">
+                  <div class="iwaLedgerMiniRow"><span>Current Weekly Income</span><b id="iwaCurrentWeekly">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Claims</span><b id="iwaRyoClaims">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Purchases</span><b id="iwaRyoPurchases">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Gifts</span><b id="iwaRyoGifts">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Loans Out</span><b id="iwaRyoLoans">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Repaid</span><b id="iwaRyoRepayments">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Owed Back</span><b id="iwaRyoOwed">0</b></div>
+                </div>
+                <div class="iwaLedgerFooter"><span></span><span>treasury summary</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Income Rules & Territory</div>
+                <div class="iwaLedgerRuleStack">
+                  <div class="iwaLedgerRuleHero"> <b id="iwaCurrentWeeklyHero">0</b>
+                    <span>Current weekly income after active rule modifiers</span>
+                  </div>
+                  <div class="iwaLedgerRuleScroll" id="iwaRuleScroll"></div>
+                </div>
+                <div class="iwaLedgerFooter">
+                  <label class="iwaLedgerSidebarOpen" for="iwaNotesTreasury">open notes</label>
+                  <span>income modifiers</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Ryō Entry Log</div>
+                <div class="iwaLedgerLog" id="iwaRyoLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>treasury ledger</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Loan / Gift Ledger</div>
+                <div class="iwaLedgerLog" id="iwaLoanGiftLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>gift / loan tracking</span></div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="iwaLedgerPane iwaPaneMines">
+          <div class="iwaLedgerGrid">
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Hannya Mine Points</div>
+                <div class="iwaLedgerTotal"><div class="iwaLedgerTotal__value" id="iwaMineDisplay">0 pts</div></div>
+                <div class="iwaLedgerMini">
+                  <div class="iwaLedgerMiniRow"><span>Current Weekly Yield</span><b id="iwaMineCurrentYield">0 pts</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Prisoners Total</span><b id="iwaMinePrisonerCount">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Total Claims</span><b id="iwaMineClaims">0 pts</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Total Taken</span><b id="iwaMineTaken">0 pts</b></div>
+                </div>
+                <div class="iwaLedgerFooter"><span></span><span>mine summary</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Mine Rules & Yield</div>
+                <div class="iwaLedgerRuleStack">
+                  <div class="iwaLedgerRuleHero">
+                    <b id="iwaMineCurrentYieldHero">0 pts</b>
+                    <span>Auto-calculated from prisoner changes</span>
+                  </div>
+                  <div class="iwaLedgerRuleScroll">
+                    <div class="iwaLedgerRuleLine"><i>Weekly Cap</i><div>200 pts maximum weekly generation</div></div>
+<div class="iwaLedgerRuleLine"><i>PPP</i><div><i>D-Rank</i>5 pts weekly per prisoner<br>
+<i>C-Rank</i> 10 pts weekly per prisoner<br>
+ <i>B-Rank</i> 15 pts weekly per prisoner<br>
+<i>A-Rank</i> 25 pts weekly per prisoner<br>
+<i>S-Rank</i> 50 pts weekly per prisoner</div></div>
+                  </div>
+                </div>
+                <div class="iwaLedgerFooter"><span></span><span>mine rules</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Prisoner Changes</div>
+                <div class="iwaLedgerLog" id="iwaMineChangeLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>prisoner movement log</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Weekly Yield & Taken</div>
+                <div class="iwaLedgerLog" id="iwaMineFlowLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>yield / taken log</span></div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="iwaLedgerPane iwaPaneCorps">
+          <div class="iwaLedgerGrid">
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Explosion Corps Stockpile</div>
+                <div class="iwaLedgerTotal"><div class="iwaLedgerTotal__value" id="iwaCorpsDisplay">0 × Depth Charger</div></div>
+                <div class="iwaLedgerMini">
+                  <div class="iwaLedgerMiniRow"><span>Total Claims</span><b id="iwaCorpsClaims">0</b></div>
+                  <div class="iwaLedgerMiniRow"><span>Total Taken</span><b id="iwaCorpsTaken">0</b></div>
+                </div>
+                <div class="iwaLedgerFooter"><span></span><span>stockpile summary</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Corps Rules & Production</div>
+                <div class="iwaLedgerRuleStack">
+                  <div class="iwaLedgerRuleHero">
+                    <b>5 / week</b>
+                    <span>Depth Charger production rate</span>
+                  </div>
+                  <div class="iwaLedgerRuleScroll">
+                    <div class="iwaLedgerRuleLine"><i>Production</i><div>5 Depth Chargers created every week</div></div>
+                    <div class="iwaLedgerRuleLine"><i>Access</i><div>Explosion Corps members or with Tsuchikage permission</div></div>
+                  </div>
+                </div>
+                <div class="iwaLedgerFooter"><span></span><span>corps rules</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Production Claims</div>
+                <div class="iwaLedgerLog" id="iwaCorpsClaimLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>claims log</span></div>
+              </div>
+            </article>
+
+            <article class="iwaLedgerCard">
+              <div class="iwaLedgerCard__inner">
+                <div class="iwaLedgerLabel">Taken / Removals</div>
+                <div class="iwaLedgerLog" id="iwaCorpsTakenLog"></div>
+                <div class="iwaLedgerFooter"><span></span><span>taken log</span></div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <section class="iwaLedgerPane iwaPaneIntel">
+          <div class="iwaIntelGrid" id="iwaIntelGrid"></div>
+        </section>
+
+        <section class="iwaLedgerPane iwaPaneTemplates">
+          <div class="iwaTemplateGrid">
+   
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Rules — Territory</div><button type="button" class="iwaTemplateSelect" data-select-id="templateRuleTerritory">highlight text</button></div><textarea class="iwaTemplateCode" id="templateRuleTerritory" readonly wrap="on">
+<div class="iwaEntry" data-rule-kind="add" data-value="0.30">
+  <div class="iwaEntryLabel">Land of Name</div>
+  <div class="iwaEntryNote">bonuses here</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="rules"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Rules — Event</div><button type="button" class="iwaTemplateSelect" data-select-id="templateRuleEvent">highlight text</button></div><textarea class="iwaTemplateCode" id="templateRuleEvent" readonly wrap="on">
+<div class="iwaEntry" data-rule-kind="mult" data-value="0.5">
+  <div class="iwaEntryLabel">Event Penalty</div>
+  <div class="iwaEntryNote">-50% weekly income</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="rules"</span></div></div></article>
+
+<article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Rules — Raid</div><button type="button" class="iwaTemplateSelect" data-select-id="templateRuleRaid">highlight text</button></div><textarea class="iwaTemplateCode" id="templateRuleRaid" readonly wrap="on">
+<div class="iwaEntry" data-rule-kind="mult" data-value="1.25">
+  <div class="iwaEntryLabel">Raid Bonus</div>
+  <div class="iwaEntryNote">+25% weekly income</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="rules"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Treasury — Weekly Income</div><button type="button" class="iwaTemplateSelect" data-select-id="templateTreasuryWeekly">highlight text</button></div><textarea class="iwaTemplateCode" id="templateTreasuryWeekly" readonly wrap="on">
+<div class="iwaEntry" data-type="claim" data-amount="0">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • legitimacy x/x • territory • raid/event if needed</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="treasury"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Treasury — Purchase</div><button type="button" class="iwaTemplateSelect" data-select-id="templateTreasuryPurchase">highlight text</button></div><textarea class="iwaTemplateCode" id="templateTreasuryPurchase" readonly wrap="on">
+<div class="iwaEntry" data-type="purchase" data-amount="0">
+  <div class="iwaEntryLabel">Purchase title / link</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • note / source link</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="treasury"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Loan / Gift — Gift</div><button type="button" class="iwaTemplateSelect" data-select-id="templateLoanGiftGift">highlight text</button></div><textarea class="iwaTemplateCode" id="templateLoanGiftGift" readonly wrap="on">
+<div class="iwaEntry" data-type="gift" data-amount="0">
+  <div class="iwaEntryLabel">Gift title / recipient</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • claim link / note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="loanGift"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Loan / Gift — Loan</div><button type="button" class="iwaTemplateSelect" data-select-id="templateLoanGiftLoan">highlight text</button></div><textarea class="iwaTemplateCode" id="templateLoanGiftLoan" readonly wrap="on">  
+<div class="iwaEntry" data-type="loan" data-amount="0">
+  <div class="iwaEntryLabel">Loan title / recipient</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="loanGift"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Loan / Gift — Repayment</div><button type="button" class="iwaTemplateSelect" data-select-id="templateLoanGiftRepayment">highlight text</button></div><textarea class="iwaTemplateCode" id="templateLoanGiftRepayment" readonly wrap="on">
+<div class="iwaEntry" data-type="repayment" data-amount="0">
+  <div class="iwaEntryLabel">Repayment title</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="loanGift"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Treasury Notes</div><button type="button" class="iwaTemplateSelect" data-select-id="templateTreasuryNotes">highlight text</button></div><textarea class="iwaTemplateCode" id="templateTreasuryNotes" readonly wrap="on">
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Raid / event / modifier note title</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • note details</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="notes"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Mine — Prisoner Gained</div><button type="button" class="iwaTemplateSelect" data-select-id="templateMineGain">highlight text</button></div><textarea class="iwaTemplateCode" id="templateMineGain" readonly wrap="on">
+<div class="iwaEntry" data-type="note" data-rank="D" data-delta="1">
+  <div class="iwaEntryLabel">Prisoner gained</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • rank • link</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="mineChanges"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Mine — Prisoner Lost</div><button type="button" class="iwaTemplateSelect" data-select-id="templateMineLoss">highlight text</button></div><textarea class="iwaTemplateCode" id="templateMineLoss" readonly wrap="on">
+<div class="iwaEntry" data-type="note" data-rank="D" data-delta="-1">
+  <div class="iwaEntryLabel">Prisoner lost</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • released / escaped / dead</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="mineChanges"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Mine — Weekly Yield Claim</div><button type="button" class="iwaTemplateSelect" data-select-id="templateMineClaim">highlight text</button></div><textarea class="iwaTemplateCode" id="templateMineClaim" readonly wrap="on">
+<div class="iwaEntry" data-type="claim" data-amount="0">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • optional note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="mineFlow"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Mine — Taken</div><button type="button" class="iwaTemplateSelect" data-select-id="templateMineTaken">highlight text</button></div><textarea class="iwaTemplateCode" id="templateMineTaken" readonly wrap="on">
+<div class="iwaEntry" data-type="taken" data-amount="0">
+  <div class="iwaEntryLabel">Material stock taken</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • claim link / note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="mineFlow"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Corps — Production Claim</div><button type="button" class="iwaTemplateSelect" data-select-id="templateCorpsClaim">highlight text</button></div><textarea class="iwaTemplateCode" id="templateCorpsClaim" readonly wrap="on">
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • 5 produced</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="corpsClaims"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Corps — Taken</div><button type="button" class="iwaTemplateSelect" data-select-id="templateCorpsTaken">highlight text</button></div><textarea class="iwaTemplateCode" id="templateCorpsTaken" readonly wrap="on">
+<div class="iwaEntry" data-type="taken" data-amount="0">
+  <div class="iwaEntryLabel">Depth Charger taken</div>
+  <div class="iwaEntryNote">yyyy-mm-dd • link / note</div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="corpsTaken"</span></div></div></article>
+
+            <article class="iwaLedgerCard"><div class="iwaLedgerCard__inner"><div class="iwaTemplateHead"><div class="iwaLedgerLabel">Intel — Raid Block</div><button type="button" class="iwaTemplateSelect" data-select-id="templateIntelRaid">highlight text</button></div><textarea class="iwaTemplateCode" id="templateIntelRaid" readonly wrap="on">
+<div class="iwaRaidSource" data-raid-title="Raid Intelligence — 01" data-source="Spy" data-target="village" data-status="active/failed/successful">
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Knowledge entry title</div>
+    <div class="iwaEntryNote">yyyy-mm-dd</div>
+  </div>
+</div>
+</textarea><div class="iwaLedgerFooter"><span></span><span>paste into data-set="intel"</span></div></div></article>
+
+          </div>
+        </section>
+
+        <aside class="iwaLedgerSidebar">
+          <div class="iwaLedgerSidebarHead">
+            <div class="iwaLedgerSidebarTitle">
+              <b>Treasury Notes</b>
+              <span>raid / event / modifier notes</span>
+            </div>
+            <label class="iwaLedgerSidebarClose" for="iwaNotesTreasury">close</label>
+          </div>
+          <div class="iwaLedgerSidebarBody">
+            <div class="iwaNotesList" id="iwaNotesLog"></div>
+          </div>
+          <div class="iwaLedgerSidebarFoot">treasury sidebar notes</div>
+        </aside>
+      </div>
+
+      <div class="shinobiFooter">
+        <div class="shinobiFooter__credits">Village Ledger</div>
+        <div class="shinobiFooter__name">Iwagakure Register</div>
+        <div class="shinobiFooter__year">2026</div>
+      </div>
+
+      <div class="iwaLedgerSource">
+        <div class="iwaConfig" data-opening-ryo="0" data-opening-mine="0" data-opening-corps="0" data-last-edited-date="2026-04-01" data-last-edited-by="Melon"></div>
+
+        <div class="iwaDataSet" data-set="rules">
+          <div class="iwaEntry" data-rule-kind="base" data-value="75000">
+            <div class="iwaEntryLabel">Base Major Village Income</div>
+            <div class="iwaEntryNote">両75,000 weekly</div>
+          </div>
+          <div class="iwaEntry" data-rule-kind="add" data-value="0.75">
+            <div class="iwaEntryLabel">Legitimacy 4</div>
+            <div class="iwaEntryNote">+75% weekly income</div>
+          </div>
+          <div class="iwaEntry" data-rule-kind="add" data-value="0.30">
+            <div class="iwaEntryLabel">Land of Bogs</div>
+            <div class="iwaEntryNote">+30% ryō generation • +10% economic building cost</div>
+          </div>
+        </div>
+
+        <div class="iwaDataSet" data-set="treasury">
+
+
+
+
+
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-01-21 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-01-28 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-02-04 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-02-11 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-02-18 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-02-25 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-03-03 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-03-10 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-03-17 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-03-24 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-03-31 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-04-07 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-04-14 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-04-21 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-04-28 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-05-05 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-05-12 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-05-19 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-05-26 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-06-02 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-06-09 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-06-16 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-06-23 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-06-30 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-07-07 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-07-14 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-07-21 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-07-28 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-08-04 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-08-11 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-08-18 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-08-25 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-09-01 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-09-08 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-09-15 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-09-22 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-09-29 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-10-06 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-10-13 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-10-20 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-10-27 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-11-03 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-11-10 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-11-17 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-11-24 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-12-01 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-12-08 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-12-15 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-12-22 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2024-12-29 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-01-05 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-01-12 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-01-19 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-01-26 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-02-02 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="196875">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-02-09 • 4 Legitimacy × 1.5 from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-02-16 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-02-23 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-03-02 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-03-09 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-03-16 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-03-23 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-03-30 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-04-06 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-04-13 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-04-20 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-04-27 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-05-04 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-05-11 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-05-18 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-05-25 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-06-01 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-06-08 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-06-15 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-06-22 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-06-29 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-07-06 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-07-13 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-07-20 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-07-27 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-08-03 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-08-10 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-08-17 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-08-24 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-08-31 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-09-07 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-09-14 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-09-21 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-09-28 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-10-05 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-10-12 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-10-19 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-10-26 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-11-02 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="164062">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-11-09 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-11-16 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-11-23 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-11-30 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-12-07 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-12-14 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-12-21 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2025-12-28 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="82031">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-01-04 • 4 Legitimacy × 1.25 from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a> • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-01-11 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-01-18 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-01-25 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-02-01 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-02-08 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-02-15 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-02-22 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-03-01 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="65625">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-03-08 • 4 Legitimacy • event -50%</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-03-15 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-03-22 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="131250">
+  <div class="iwaEntryLabel">Weekly village income</div>
+  <div class="iwaEntryNote">2026-03-29 • 4 Legitimacy</div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="525000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=5246&view=findpost&p=11623">Hannya Mine</a></div>
+  <div class="iwaEntryNote">2024-02-15 <a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=11870">Purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="525000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=5483&view=findpost&p=12637">Otoshidama Plaza</a></div>
+  <div class="iwaEntryNote">2024-03-13 <a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=12659">Purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="200000">
+  <div class="iwaEntryLabel">Yosun Yomi — C-rank NPC</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=14323">NPC purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="2000000">
+  <div class="iwaEntryLabel">Akuta and Onzens</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=16891">Purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="1000000">
+  <div class="iwaEntryLabel">Explosion Corps</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=17888">Purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="1000000">
+  <div class="iwaEntryLabel">Cherub Network</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=19410">Purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="500000">
+  <div class="iwaEntryLabel">Hayashi Kamizuru — A-rank NPC</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=21289">NPC purchase</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="2000000">
+  <div class="iwaEntryLabel">2 million removed</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=9359&view=findpost&p=29507">Treasury removal</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="4000000">
+  <div class="iwaEntryLabel">4 million removed</div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=10810&view=findpost&p=35831">Treasury removal</a></div>
+</div>
+<div class="iwaEntry" data-type="purchase" data-amount="1000000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=11425&view=findpost&p=39005">Contract Terminal</a></div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=39716">Purchase</a></div>
+</div> 
+</div>
+
+        <div class="iwaDataSet" data-set="loanGift">
+
+
+<div class="iwaEntry" data-type="gift" data-amount="200000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=2840&view=findpost&p=3596">Aloide Fuma</a></div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2983&view=findpost&p=15851">Claimed here</a></div>
+</div>
+<div class="iwaEntry" data-type="gift" data-amount="200000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=7795&view=findpost&p=22432">Gadreel Ranzu</a></div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2983&view=findpost&p=17293">Claimed Here</a></div>
+</div>
+<div class="iwaEntry" data-type="gift" data-amount="200000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=8008&view=findpost&p=23338">Noriaki</a></div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2983&view=findpost&p=15852">Claimed here</a></div>
+</div>
+<div class="iwaEntry" data-type="gift" data-amount="200000">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=6154&view=findpost&p=15423">Kazusa Honda</a></div>
+  <div class="iwaEntryNote"><a href="https://nindo.jcink.net/index.php?showtopic=2983&view=findpost&p=17367">Claimed here</a></div>
+</div>
+</div>
+
+        <div class="iwaDataSet" data-set="notes">
+
+
+
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Major village raid bonus starts</div>
+  <div class="iwaEntryNote">2024-08-18 • +50% weekly income begins from <a href="https://nindo.jcink.net/index.php?showtopic=6155&view=findpost&p=15498">Raid</a></div>
+</div>
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Major village raid bonus ends</div>
+  <div class="iwaEntryNote">2025-02-16 • back to normal weekly income</div>
+</div>
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Minor village raid bonus starts</div>
+  <div class="iwaEntryNote">2025-07-05 • +25% weekly income begins from <a href="https://nindo.jcink.net/index.php?showtopic=8500&view=findpost&p=26738">Raid of a Minor Village</a></div>
+</div>
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Event penalty starts</div>
+  <div class="iwaEntryNote">2025-11-16 • weekly income reduced by 50%</div>
+</div>
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Minor village raid bonus ends</div>
+  <div class="iwaEntryNote">2026-01-11 • +25% raid bonus no longer applies</div>
+</div>
+<div class="iwaEntry">
+  <div class="iwaEntryLabel">Event penalty ends</div>
+  <div class="iwaEntryNote">2026-03-15 • weekly income returns to normal</div>
+</div>
+</div>
+
+        <div class="iwaDataSet" data-set="mineChanges">
+
+
+
+
+<div class="iwaEntry" data-type="note" data-rank="D" data-delta="3">
+  <div class="iwaEntryLabel">3 D-rank NPCs enter</div>
+  <div class="iwaEntryNote">2024-04-01 • D-rank ×3 • <a href="https://nindo.jcink.net/index.php?showtopic=5488&view=findpost&p=13015">entry link</a></div>
+</div>
+<div class="iwaEntry" data-type="note" data-rank="C" data-delta="1">
+  <div class="iwaEntryLabel">C-rank NPC enters</div>
+  <div class="iwaEntryNote">2025-02-16 • C-rank • <a href="https://nindo.jcink.net/index.php?showtopic=7108&view=findpost&p=19903">entry link</a></div>
+</div>
+<div class="iwaEntry" data-type="note" data-rank="C" data-delta="1">
+  <div class="iwaEntryLabel">C-rank NPC enters</div>
+  <div class="iwaEntryNote">2025-03-16 • C-rank • <a href="https://nindo.jcink.net/index.php?showtopic=7522&view=findpost&p=21377">entry link</a></div>
+</div>
+<div class="iwaEntry" data-type="note" data-rank="D" data-delta="1">
+  <div class="iwaEntryLabel">D-rank NPC enters</div>
+  <div class="iwaEntryNote">2025-10-24 • D-rank • <a href="https://nindo.jcink.net/index.php?showtopic=10033&view=findpost&p=32823">entry link</a></div>
+</div>
+<div class="iwaEntry" data-type="note" data-rank="C" data-delta="1">
+  <div class="iwaEntryLabel">C-rank NPC enters</div>
+  <div class="iwaEntryNote">2026-01-31 • C-rank • <a href="https://nindo.jcink.net/index.php?showtopic=10874&st=0&#entry37362">entry link</a></div>
+</div>
+<div class="iwaEntry" data-type="note" data-rank="S" data-delta="1">
+  <div class="iwaEntryLabel">S-rank NPC enters</div>
+  <div class="iwaEntryNote">2026-03-28 • S-rank • <a href="https://nindo.jcink.net/index.php?showtopic=11422&view=findpost&p=40292">entry link</a></div>
+</div>
+</div>
+        <div class="iwaDataSet" data-set="mineFlow">
+
+
+
+
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-04-07 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-04-14 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-04-21 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-04-28 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-05-05 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-05-12 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-05-19 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-05-26 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-06-02 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-06-09 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-06-16 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-06-23 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-06-30 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-07-07 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-07-14 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-07-21 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-07-28 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-08-04 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-08-11 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-08-18 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-08-25 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-09-01 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-09-08 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-09-15 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-09-22 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-09-29 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-10-06 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-10-13 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-10-20 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-10-27 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-11-03 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-11-10 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-11-17 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-11-24 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-12-01 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-12-08 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-12-15 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-12-22 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2024-12-29 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-01-05 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-01-12 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-01-19 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-01-26 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-02-02 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="15">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-02-09 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="25">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-02-16 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="25">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-02-23 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="25">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-03-02 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="25">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-03-09 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-03-16 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-03-23 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-03-30 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-04-06 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-04-13 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-04-20 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-04-27 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-05-04 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-05-11 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-05-18 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-05-25 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-06-01 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-06-08 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-06-15 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-06-22 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-06-29 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-07-06 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-07-13 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-07-20 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-07-27 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-08-03 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-08-10 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-08-17 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-08-24 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-08-31 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-09-07 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-09-14 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-09-21 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-09-28 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-10-05 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-10-12 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="35">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-10-19 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-10-26 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-11-02 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-11-09 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-11-16 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-11-23 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-11-30 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-12-07 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-12-14 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-12-21 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2025-12-28 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-01-04 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-01-11 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-01-18 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="40">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-01-25 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-02-01 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-02-08 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-02-15 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-02-22 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-03-01 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-03-08 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-03-15 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="50">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-03-22 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="100">
+  <div class="iwaEntryLabel">Weekly mine yield</div>
+  <div class="iwaEntryNote">2026-03-29 • auto-generated weekly yield</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="60">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=14520">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="40">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=17888">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="360">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=2458&view=findpost&p=18022">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="122">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=7601&view=findpost&p=21929">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="96">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=2983&view=findpost&p=27433">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="490">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=28943">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="40">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=31797">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+<div class="iwaEntry" data-type="taken" data-amount="42">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=6840&view=findpost&p=34098">Material stock taken</a></div>
+  <div class="iwaEntryNote">source link in label</div>
+</div>
+</div>
+
+
+        <div class="iwaDataSet" data-set="corpsClaims">
+
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-11-17 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-11-24 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-12-01 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-12-08 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-12-15 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-12-22 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2024-12-29 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-01-05 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-01-12 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-01-19 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-01-26 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-02-02 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-02-09 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-02-16 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-02-23 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-03-02 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-03-09 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-03-16 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-03-23 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-03-30 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-04-06 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-04-13 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-04-20 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-04-27 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-05-04 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-05-11 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-05-18 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-05-25 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-06-01 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-06-08 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-06-15 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-06-22 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-06-29 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-07-06 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-07-13 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-07-20 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-07-27 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-08-03 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-08-10 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-08-17 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-08-24 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-08-31 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-09-07 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-09-14 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-09-21 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-09-28 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-10-05 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-10-12 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-10-19 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-10-26 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-11-02 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-11-09 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-11-16 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-11-23 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-11-30 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-12-07 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-12-14 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-12-21 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2025-12-28 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-01-04 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-01-11 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-01-18 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-01-25 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-02-01 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-02-08 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-02-15 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-02-22 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-03-01 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-03-08 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-03-15 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-03-22 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+<div class="iwaEntry" data-type="claim" data-amount="5">
+  <div class="iwaEntryLabel">Weekly production</div>
+  <div class="iwaEntryNote">2026-03-29 • 5 <a href="https://nindo.jcink.net/index.php?showtopic=6646&view=findpost&p=17624">Depth Charger</a> produced</div>
+</div>
+</div>
+        <div class="iwaDataSet" data-set="corpsTaken">
+
+
+<div class="iwaEntry" data-type="taken" data-amount="15">
+  <div class="iwaEntryLabel"><a href="https://nindo.jcink.net/index.php?showtopic=6996&view=findpost&p=24640">Depth Charger removed</a></div>
+  <div class="iwaEntryNote">15 removed from stockpile</div>
+</div>
+</div>
+        <div class="iwaDataSet" data-set="intel">
+
+
+
+
+<div class="iwaRaidSource" data-raid-title="Raid Intelligence — 01" data-source="Spy" data-target="Suna" data-status="successful">
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Locations and functions of all Village Upgrades</div>
+    <div class="iwaEntryNote">2024-08-18</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Identity of village Jinchūriki and/or location of sealed bijū</div>
+    <div class="iwaEntryNote">2024-08-25</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Tessenjutsu info</div>
+    <div class="iwaEntryNote">2024-09-01</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Chikamatsu Puppets info</div>
+    <div class="iwaEntryNote">2024-09-08</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Legendary Biwa info</div>
+    <div class="iwaEntryNote">2024-09-15</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Human Puppetry info</div>
+    <div class="iwaEntryNote">2024-09-22</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Glass Release info</div>
+    <div class="iwaEntryNote">2024-09-29</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Kage info</div>
+    <div class="iwaEntryNote">2024-10-06</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">3rd Legendary equipment info</div>
+    <div class="iwaEntryNote">2024-10-13</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">New Village Upgrade info</div>
+    <div class="iwaEntryNote">2025-01-07</div>
+  </div>
+  <div class="iwaEntry">
+    <div class="iwaEntryLabel">Wildfire Release info</div>
+    <div class="iwaEntryNote">2025-03-09</div>
+  </div>
+</div>
+</div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-.greatNationsGrid {
-  display: flex;
-  gap: 24px;
-}
-.forumrow {
-  flex: 1 1 0;
-  transition: flex .55s cubic-bezier(.22,.61,.36,1);
-}
-.greatNationsGrid:hover .forumrow { flex: .45 1 0; }
-.greatNationsGrid .forumrow:hover { flex: 4.4 1 0; }
-.nationRecent {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .35s ease, transform .35s ease;
-}
-.forumrow:hover .nationRecent {
-  opacity: 1;
-  transform: translateY(0);
-}`
+<script src="https://files.jcink.net/uploads2/melonsvault/ledgerjava1.js"></script>
       },
       profile: {
         title: "Cyberpunk Mini Profile",
