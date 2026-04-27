@@ -4,13 +4,445 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Deserez Krentz is a Creative Systems Developer building Discord bots, JCink/forum systems, AI-style assistants, coded resumes, and polished community tools." />
-  <meta name="description" content="Deserez Krentz builds Discord bots, JCink/front-end systems, forum mini-apps, database-backed community tools, documentation, and polished creative systems." />
   <meta property="og:title" content="Deserez Krentz | Creative Systems Developer" />
   <meta property="og:description" content="Portfolio for bot development, JCink/forum systems, AI evaluation, writing, and UX-minded tools." />
-  <meta property="og:description" content="Portfolio for bot development, JCink/front-end systems, community workflows, AI evaluation, writing, and UX-minded tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://deserez.github.io/" />
   <meta name="theme-color" content="#fff8fb" />
+  <title>Deserez Krentz | Creative Systems Developer</title>
+  <link href="https://file.garden/ZpA9El5gR2LIe6l8/game_icons.css" rel="stylesheet" />
+  <link href="https://file.garden/ZpA9El5gR2LIe6l8/icofont.css" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: "Yessy";
+      src: url("./fonts/Yessy Font by Situjuh (7NTypes).otf") format("opentype");
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Protofo";
+      src: url("./fonts/Protofo-Regular.otf") format("opentype");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Protofo";
+      src: url("./fonts/Protofo-Bold.otf") format("opentype");
+      font-weight: 700;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Fixedersys";
+      src: url("./fonts/FixederSys1x.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    :root {
+      --bg-1: #fff8fb;
+      --bg-2: #f4edf2;
+      --ink: #2c2529;
+      --muted: #765f6a;
+      --line: #e7d4dd;
+      --panel: rgba(255, 251, 253, 0.94);
+      --panel-soft: rgba(255, 251, 253, 0.72);
+      --rose: #b7778d;
+      --rose-deep: #8d4f64;
+      --rose-soft: #f7e5ec;
+      --lavender: #d8d0ea;
+      --mint: #d9eadf;
+      --gold: #ead7a2;
+      --shadow: 0 22px 55px rgba(122, 82, 99, 0.18);
+      --ui-font: "Protofo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --script-font: "Yessy", Georgia, serif;
+      --mono-font: "Fixedersys", "SFMono-Regular", Consolas, monospace;
+      --dock-h: 82px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      font-family: var(--ui-font);
+      background:
+        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
+        url("./assets/background-desktop.png") center/cover no-repeat,
+        linear-gradient(135deg, var(--bg-1), var(--bg-2));
+    }
+    body::before {
+      content: "DK";
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      z-index: 0;
+      transform: translate(-50%, -50%) rotate(-4deg);
+      font-family: var(--script-font);
+      font-size: clamp(150px, 28vw, 420px);
+      color: rgba(183, 119, 141, 0.18);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible {
+      outline: 3px solid rgba(141, 79, 100, 0.45);
+      outline-offset: 3px;
+    }
+
+    .desktop {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding: 24px 24px calc(var(--dock-h) + 18px);
+      overflow: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 16px;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
+      background: rgba(255, 251, 253, 0.68);
+      box-shadow: 0 12px 28px rgba(122, 82, 99, 0.1);
+      backdrop-filter: blur(18px);
+    }
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      min-width: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .brand-mark {
+      color: var(--rose-deep);
+      font-family: var(--script-font);
+      font-size: 32px;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .brand-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .clock {
+      flex: none;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .desktop-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 118px);
+      grid-auto-rows: 126px;
+      gap: 14px 16px;
+      width: max-content;
+      margin-top: 22px;
+      user-select: none;
+    }
+    .icon {
+      display: flex;
+      width: 118px;
+      min-height: 118px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 8px;
+      border: 1px solid transparent;
+      border-radius: 16px;
+      color: inherit;
+      text-align: center;
+      text-decoration: none;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .icon:hover, .icon:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(231, 212, 221, 0.9);
+      background: rgba(255,255,255,0.42);
+      box-shadow: 0 14px 30px rgba(122, 82, 99, 0.12);
+    }
+    .icon-emoji {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
+      color: #6c4d58;
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,229,236,.95));
+      box-shadow: 0 12px 22px rgba(122, 82, 99, 0.1);
+      font-size: 24px;
+    }
+    .icon-label {
+      max-width: 104px;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-shadow: 0 1px 6px rgba(38, 28, 34, 0.9);
+      overflow-wrap: anywhere;
+    }
+
+    .profile-widget {
+      position: absolute;
+      right: 24px;
+      bottom: calc(var(--dock-h) + 26px);
+      z-index: 2;
+      width: min(360px, calc(100vw - 48px));
+      padding: 18px;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 20px;
+      background: rgba(255, 251, 253, 0.72);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .widget-title, .eyebrow {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .profile-widget p {
+      margin: 0;
+      color: #3f3339;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .stat {
+      min-height: 70px;
+      padding: 10px;
+      border: 1px solid rgba(231, 212, 221, 0.9);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.64);
+    }
+    .stat strong {
+      display: block;
+      color: var(--rose-deep);
+      font-size: 19px;
+      line-height: 1.1;
+    }
+    .stat span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .dock {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      z-index: 30;
+      display: flex;
+      max-width: calc(100% - 40px);
+      min-height: var(--dock-h);
+      align-items: center;
+      gap: 10px;
+      padding: 11px 13px;
+      overflow-x: auto;
+      transform: translateX(-50%);
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 22px;
+      background: rgba(255, 251, 253, 0.76);
+      box-shadow: 0 20px 45px rgba(122, 82, 99, 0.15);
+      backdrop-filter: blur(18px);
+    }
+    .dock:empty::before {
+      content: "Open windows appear here";
+      padding: 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .dock-item {
+      display: grid;
+      min-width: 58px;
+      height: 58px;
+      place-items: center;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,229,236,.95));
+      color: #6c4d58;
+      cursor: pointer;
+      font-size: 20px;
+      box-shadow: 0 10px 20px rgba(122, 82, 99, 0.08);
+    }
+    .dock-item.active {
+      border-color: rgba(141, 79, 100, 0.42);
+      box-shadow: inset 0 0 0 2px rgba(141, 79, 100, 0.12), 0 10px 20px rgba(122, 82, 99, 0.1);
+    }
+
+    .window {
+      position: absolute;
+      z-index: 10;
+      width: min(790px, calc(100vw - 130px));
+      min-width: 320px;
+      max-height: calc(100vh - 164px);
+      overflow: hidden;
+      border: 1px solid rgba(231, 212, 221, 0.98);
+      border-radius: 22px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      animation: windowIn 180ms ease;
+    }
+    .window.is-active {
+      border-color: rgba(141, 79, 100, 0.42);
+      box-shadow: 0 26px 70px rgba(122, 82, 99, 0.23);
+    }
+    .window.hidden { display: none; }
+    @keyframes windowIn {
+      from { opacity: 0; transform: scale(.98) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .window-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(231, 212, 221, 0.9);
+      background: rgba(255, 248, 251, 0.93);
+      cursor: move;
+      user-select: none;
+    }
+    .window-title-wrap {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 10px;
+    }
+    .window-icon {
+      display: grid;
+      flex: none;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.72);
+      color: #6c4d58;
+      font-size: 18px;
+    }
+    .window-title {
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .window-controls {
+      display: flex;
+      flex: none;
+      gap: 8px;
+    }
+    .ctrl {
+      width: 15px;
+      height: 15px;
+      padding: 0;
+      border: 1px solid rgba(112, 85, 97, 0.22);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .ctrl.min { background: #ecd18b; }
+    .ctrl.max { background: #b8ddc0; }
+    .ctrl.close { background: #eaa6ba; }
+    .window-body {
+      max-height: calc(100vh - 238px);
+      overflow: auto;
+      padding: 22px;
+    }
+
+    .hero-name {
+      margin: 0 0 8px;
+      color: #3d3036;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.05;
+    }
+    .hero-sub {
+      margin: 0 0 18px;
+      color: var(--rose-deep);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+    .copy, .project-card p, .resume-card p {
+      margin: 0 0 14px;
+      color: #3f3339;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(210px, .8fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .callout {
+      padding: 16px;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.64);
+    }
+    .callout strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--rose-deep);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 7px 11px;
+      border: 1px solid rgba(183, 119, 141, 0.28);
+      border-radius: 999px;
+      background: var(--rose-soft);
+      color: #59464f;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+      gap: 14px;
+    }
+    .project-card, .resume-card {
+      padding: 16px;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
       background: rgba(255,255,255,0.70);
       box-shadow: 0 12px 24px rgba(122, 82, 99, 0.08);
     }
@@ -29,30 +461,60 @@
     .project-card--wide {
       grid-column: 1 / -1;
     }
-        radial-gradient(circle at 18% 20%, rgba(183,119,141,.18), transparent 30%),
-        linear-gradient(135deg, rgba(255,255,255,.76), rgba(247,229,236,.68));
-    }
-    .sample-preview::after {
-      content: "Open full code";
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      padding: 7px 9px;
-      border: 1px solid rgba(183,119,141,0.28);
-      border-radius: 999px;
-      background: rgba(255,255,255,.84);
-      color: #523944;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .08em;
+    .project-card h3 {
+      margin: 0 0 8px;
+      color: #46383e;
+      font-size: 15px;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
     }
-    .sample-preview--ledger {
+    .project-meta {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      letter-spacing: .08em;
+      gap: 7px;
+      margin: 13px 0 0;
+      color: #51434a;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    .project-meta b { color: var(--rose-deep); }
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 14px;
+    }
+    .file-link, .text-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 13px;
+      border: 1px solid rgba(183,119,141,0.35);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.88);
+      color: #523944;
+      font-weight: 800;
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .text-link[aria-disabled="true"] {
+      color: #89717b;
+      background: rgba(247,229,236,0.55);
+      cursor: not-allowed;
+    }
+    .terminal-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border: 1px dashed rgba(141, 79, 100, 0.32);
+      border-radius: 12px;
+      background: rgba(251,244,247,0.9);
+      color: #57454d;
+      font-family: var(--mono-font);
+      font-size: 12px;
+      line-height: 1.55;
       text-transform: uppercase;
     }
+
     .rate-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
@@ -96,6 +558,7 @@
       text-align: right;
       white-space: nowrap;
     }
+
     .code-viewer-pre {
       max-height: 420px;
       overflow: auto;
@@ -108,17 +571,103 @@
       font: 12px/1.65 Consolas, "SFMono-Regular", monospace;
       white-space: pre-wrap;
     }
+
     .contact-list {
       display: grid;
       gap: 12px;
+    }
+    .contact-item {
+      padding: 14px 16px;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.70);
+      color: #453840;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .contact-item a { color: var(--rose-deep); font-weight: 800; text-decoration: none; }
+
+    @media (max-width: 980px) {
+      .profile-widget { display: none; }
+      .window { width: calc(100vw - 42px); }
+      .split { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      body { overflow: auto; }
+      .desktop {
+        min-height: 100%;
+        height: auto;
+        padding: 14px 14px 104px;
+        overflow: visible;
+      }
+      .topbar {
+        align-items: flex-start;
+        border-radius: 14px;
+      }
+      .brand { align-items: center; letter-spacing: 0.08em; }
+      .brand-title { white-space: normal; }
+      .desktop-grid {
+        grid-template-columns: repeat(3, minmax(86px, 1fr));
+        width: 100%;
+        grid-auto-rows: auto;
+        gap: 10px;
+      }
+      .icon {
+        width: 100%;
+        min-height: 96px;
+        padding: 8px 6px;
+      }
+      .icon-emoji {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        font-size: 21px;
+      }
+      .icon-label { font-size: 13px; }
+      .window {
+        position: relative;
+        left: auto !important;
+        top: auto !important;
+        width: 100%;
+        min-width: 0;
+        max-height: none;
+        margin-top: 16px;
+        border-radius: 18px;
+      }
+      .window.hidden { display: none; }
+      .window-header { cursor: default; }
+      .window-body { max-height: none; padding: 18px; }
+      .dock {
+        position: fixed;
+        bottom: 10px;
+        max-width: calc(100% - 20px);
+      }
+      .dock:empty::before { content: "Tap an icon to open a section"; }
+      .hero-name { font-size: 32px; }
+      .hero-sub { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="desktop" id="desktop">
     <header class="topbar" aria-label="Portfolio top bar">
       <div class="brand">
         <span class="brand-mark">Dk</span>
         <span class="brand-title">Deserez OS / Creative Systems Developer</span>
-        <span class="brand-title">Deserez OS / Bots, Front-End Systems & Creative Tools</span>
       </div>
       <div class="clock" id="clock" aria-label="Current time">--:--</div>
     </header>
+
+    <nav class="desktop-grid" aria-label="Portfolio sections">
+      <button class="icon" type="button" data-window="about" aria-label="Open about section">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-notepad"></i></span>
+        <span class="icon-label">About.txt</span>
+      </button>
+      <button class="icon" type="button" data-window="projects" aria-label="Open projects section">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-folder"></i></span>
+        <span class="icon-label">Projects</span>
+      </button>
+      <button class="icon" type="button" data-window="code-lab" aria-label="Open code lab section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-code"></i></span>
         <span class="icon-label">Code Lab</span>
       </button>
@@ -126,70 +675,179 @@
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-price"></i></span>
         <span class="icon-label">Rates</span>
       </button>
-      <button class="icon" type="button" data-window="resume" aria-label="Open coded resume section">
+      <button class="icon" type="button" data-window="resume" aria-label="Open resume section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-file-pdf"></i></span>
-        <span class="icon-label">Resume.html</span>
+        <span class="icon-label">Resume.pdf</span>
+      </button>
+      <button class="icon" type="button" data-window="contact" aria-label="Open contact section">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-envelope-open"></i></span>
+        <span class="icon-label">Contact</span>
+      </button>
+      <a class="icon" href="https://github.com/deserez" target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-github"></i></span>
+        <span class="icon-label">GitHub</span>
+      </a>
+    </nav>
+
+    <aside class="profile-widget" aria-label="Quick profile">
+      <p class="widget-title">Quick Profile</p>
+      <p>Self-taught developer and writer building useful systems for communities: bots, web layouts, AI-style assistants, documentation, and UX-minded tools.</p>
+      <div class="profile-stats">
+        <div class="stat"><strong>20</strong><span>years coding and writing</span></div>
+        <div class="stat"><strong>4</strong><span>featured build areas</span></div>
+        <div class="stat"><strong>1</strong><span>public resume, privacy-safe</span></div>
+      </div>
+    </aside>
+
+    <div class="dock" id="dock" aria-label="Open windows"></div>
+
+    <section class="window" id="window-about" style="left: 178px; top: 126px;" aria-labelledby="title-about">
+      <div class="window-header">
+        <div class="window-title-wrap">
+          <div class="window-icon" aria-hidden="true"><i class="icofont-notepad"></i></div>
+          <div class="window-title" id="title-about">About.txt</div>
+        </div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize About"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus About"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close About"></button>
+        </div>
+      </div>
       <div class="window-body">
         <div class="split">
           <div>
             <p class="eyebrow">Developer / Writer / Systems Builder</p>
-            <p class="eyebrow">Bot Developer / Front-End Systems Builder / Technical Writer</p>
             <h1 class="hero-name">Deserez Krentz</h1>
             <p class="hero-sub">Creative Systems Developer building community tools with structure, personality, and polish.</p>
             <p class="copy">I have been coding and writing for about twenty years, with recent work focused on Discord bots, custom web layouts, AI-style assistant workflows, technical writing, and community platform systems.</p>
-            <p class="hero-sub">Building Discord bots, JCink/front-end systems, forum mini-apps, documentation, and polished community workflows.</p>
-            <p class="copy">I have been coding and writing for about twenty years, with recent work focused on custom Discord bot development, database-backed bot systems, JCink/front-end tooling, deployment troubleshooting, AI-style assistant workflows, technical writing, and UX polish.</p>
             <p class="copy">My favorite projects sit where logic and voice meet: tools that organize complex rules, help people navigate systems, and still feel memorable to use.</p>
             <div class="pill-row" aria-label="Core skills">
               <span class="pill">HTML</span>
+              <span class="pill">CSS</span>
+              <span class="pill">JavaScript</span>
+              <span class="pill">Node.js</span>
+              <span class="pill">Discord.js</span>
+              <span class="pill">SQLite</span>
+              <span class="pill">AI Evaluation</span>
+              <span class="pill">Prompt Engineering</span>
+              <span class="pill">Technical Writing</span>
+            </div>
+          </div>
+          <aside class="callout">
+            <strong>What I Bring</strong>
+            <p class="copy">A practical mix of code, documentation, customer-facing problem solving, and creative systems design.</p>
+            <p class="copy">I am especially strong at turning messy rules, workflows, or community needs into tools people can actually use.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="window hidden" id="window-projects" style="left: 252px; top: 104px;" aria-labelledby="title-projects">
+      <div class="window-header">
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-folder"></i></div><div class="window-title" id="title-projects">Projects</div></div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Projects"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Projects"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Projects"></button>
+        </div>
+      </div>
       <div class="window-body">
         <p class="eyebrow">Featured Work</p>
         <div class="project-grid">
           <article class="project-card">
-          <button class="project-card" type="button" data-code-sample="ledger">
             <h3>Fisto Unit</h3>
             <p>Fallout-inspired Discord RPG bot designed around player progression, inventory, raids, shops, perks, and a caps economy.</p>
+            <div class="project-meta">
+              <span><b>Role:</b> Bot developer, systems designer, writer</span>
+              <span><b>Stack:</b> Node.js, Discord.js, SQLite</span>
+              <span><b>Focus:</b> Game loops, command UX, data-backed progression</span>
+            </div>
+            <div class="pill-row"><span class="pill">Node.js</span><span class="pill">Discord.js</span><span class="pill">SQLite</span></div>
+            <div class="link-row"><a class="text-link" href="https://github.com/deserez" target="_blank" rel="noreferrer">GitHub Profile</a><span class="text-link" aria-disabled="true">Private Build</span></div>
+            <div class="terminal-note">system status: online // modules: raids, economy, loot, progression</div>
+          </article>
+          <article class="project-card">
+            <h3>Hashirama</h3>
+            <p>AI-style Discord assistant concept for the Naruto Nindo roleplay community, built to help users navigate rules, lore, mechanics, and handbook systems.</p>
+            <div class="project-meta">
+              <span><b>Role:</b> Assistant designer, workflow builder, technical writer</span>
+              <span><b>Focus:</b> Structured knowledge support, conversational UX</span>
+            </div>
+            <div class="pill-row"><span class="pill">AI-style UX</span><span class="pill">Bot Logic</span><span class="pill">Documentation</span></div>
+            <div class="link-row"><span class="text-link" aria-disabled="true">Community Tool</span></div>
+          </article>
+          <article class="project-card">
+            <h3>Lunaria</h3>
+            <p>Mobile app concept for period, fertility, and pregnancy tracking with a supportive tone, feminine UI direction, and careful attention to user trust.</p>
+            <div class="project-meta">
+              <span><b>Role:</b> Product thinker, UX writer, interface designer</span>
+              <span><b>Focus:</b> Wellness workflows, privacy-minded design, mobile polish</span>
+            </div>
+            <div class="pill-row"><span class="pill">App Design</span><span class="pill">UX Writing</span><span class="pill">Mobile UI</span></div>
+            <div class="link-row"><span class="text-link" aria-disabled="true">In Development</span></div>
+          </article>
+          <article class="project-card">
+            <h3>Nindo Web</h3>
+            <p>Custom forum layouts, templates, and immersive community styling for roleplay spaces, balancing readable structure with strong atmosphere.</p>
+            <div class="project-meta">
+              <span><b>Role:</b> Front-end customizer, layout builder, community designer</span>
+              <span><b>Stack:</b> HTML, CSS, front-end customization</span>
+            </div>
+            <div class="pill-row"><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">Community UX</span></div>
+            <div class="link-row"><span class="text-link" aria-disabled="true">Community Assets</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="window hidden" id="window-code-lab" style="left: 286px; top: 118px;" aria-labelledby="title-code-lab">
+      <div class="window-header">
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-code"></i></div><div class="window-title" id="title-code-lab">Code Lab</div></div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Code Lab"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Code Lab"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Code Lab"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p class="eyebrow">Featured Code & Systems</p>
+        <div class="project-grid">
+          <button class="project-card" type="button" data-code-sample="ledger">
+            <h3>Iwagakure Treasury Register</h3>
+            <p>Representative source structure for the treasury/resource registry: tab inputs, data sets, calculated totals, and rendered logs.</p>
             <div class="project-meta">
               <span><b>Built:</b> data-driven HTML, CSS, JavaScript rendering</span>
               <span><b>Features:</b> calculated totals, categorized logs, hidden data sets, reusable entry templates</span>
             </div>
-          </article>
           </button>
 
-          <article class="project-card">
           <button class="project-card" type="button" data-code-sample="nations">
-            <div class="sample-preview sample-preview--nations" aria-hidden="true">
-              <div class="nation-tile" style="--tile:#dbab39"><span>fire</span></div>
-              <div class="nation-tile" style="--tile:#94b447"><span>earth</span></div>
+            <h3>Five Great Nations Forum Rows</h3>
+            <p>Expandable forum-row layout pattern with nation colors, recent-post metadata, image overlays, hover expansion, and mobile fallback.</p>
+            <div class="project-meta">
               <span><b>Built:</b> responsive CSS layout and hover interaction design</span>
               <span><b>Focus:</b> atmosphere, scanability, forum navigation, graceful mobile behavior</span>
             </div>
-          </article>
           </button>
 
-          <article class="project-card">
           <button class="project-card" type="button" data-code-sample="profile">
-            <div class="sample-preview sample-preview--profile" aria-hidden="true">
-              <div class="profile-scan"></div>
-              <div class="profile-readout">
+            <h3>Cyberpunk Mini Profile</h3>
+            <p>Profile card with threat-state themes, hover stat reveal, scanline effects, tooltips, awards, and responsive fallback.</p>
+            <div class="project-meta">
               <span><b>Built:</b> HTML/CSS animation, hover states, responsive profile cards</span>
               <span><b>Focus:</b> visual systems, game-like information hierarchy, microinteractions</span>
             </div>
-          </article>
           </button>
 
-          <article class="project-card">
           <button class="project-card" type="button" data-code-sample="tutorial">
-            <div class="sample-preview sample-preview--tutorial" aria-hidden="true">
-              <div class="tutorial-block"><b>Coding 101</b> class naming, wrappers, margin, padding, positioning</div>
-              <div class="tutorial-block"><b>Copy Blocks</b> beginner-safe examples with highlighted textareas</div>
+            <h3>Coding 101 Tutorial</h3>
+            <p>Teaching layout with table of contents, live examples, copyable code blocks, troubleshooting, and beginner-safe doHTML examples.</p>
+            <div class="project-meta">
               <span><b>Built:</b> technical tutorial, live previews, copyable code blocks</span>
               <span><b>Focus:</b> making code approachable while teaching maintainable habits</span>
             </div>
-          </article>
           </button>
 
-          <article class="project-card project-card--wide">
           <button class="project-card project-card--wide" type="button" data-code-sample="statpages">
             <h3>Nindo Character Stat Pages</h3>
             <p>Large character dossiers for Suiren and Sumire with tab navigation, animated hero canvases, inventory tables, jutsu counters, relationship plotters, seal/body registries, prominence and ryō calculators, templates, and sorted material/thread lists.</p>
@@ -300,23 +958,117 @@
         </div>
       </div>
     </section>
-          <header class="resume-head">
-            <div>
-              <h2 class="resume-name">Deserez Krentz</h2>
-              <p class="resume-role">Creative Systems Developer</p>
-              <p class="resume-role">Bot Developer / Front-End Systems Builder / Technical Writer</p>
-            </div>
-            <div class="resume-contact">
-              <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a>
 
-          <section class="resume-section">
-            <h3>Profile</h3>
-            <p>Self-taught developer, writer, and digital systems builder with about twenty years of coding and writing experience. Builds Discord bots, custom web layouts, AI-style assistant workflows, documentation-heavy systems, and polished community tools. Strong at turning complex rules, user needs, and operational workflows into clear, usable experiences.</p>
-            <p>Self-taught developer, writer, and digital systems builder with about twenty years of coding and writing experience. Builds Discord bots, JCink/front-end systems, database-backed bot tools, forum mini-apps, documentation-heavy systems, deployment troubleshooting workflows, and polished community tools. Strong at turning complex rules, user needs, and operational workflows into clear, usable experiences.</p>
-          </section>
+    <section class="window hidden" id="window-resume" style="left: 154px; top: 86px; width: min(780px, calc(100vw - 120px));" aria-labelledby="title-resume">
+      <div class="window-header">
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-pdf"></i></div><div class="window-title" id="title-resume">Resume.pdf</div></div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Resume"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Resume"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Resume"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="resume-card">
+          <p class="eyebrow">Public Resume</p>
+          <h2 class="hero-name" style="font-size:28px;">Deserez Krentz</h2>
+          <p class="hero-sub">Creative Systems Developer</p>
+          <p>Privacy-safe PDF resume with email and GitHub only. It highlights long-term coding experience, bot and web projects, AI evaluation, technical writing, documentation-heavy work, database work, and community platform tooling.</p>
+          <div class="link-row">
+            <a class="file-link" href="./resume.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a>
+            <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <section class="resume-section">
-      button.addEventListener("click", () => openWindow(button.dataset.window));
+    <section class="window hidden" id="window-contact" style="left: 338px; top: 146px; width: min(540px, calc(100vw - 100px));" aria-labelledby="title-contact">
+      <div class="window-header">
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-envelope-open"></i></div><div class="window-title" id="title-contact">Contact</div></div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Contact"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Contact"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Contact"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <div class="contact-list">
+          <div class="contact-item"><b>Email:</b> <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a></div>
+          <div class="contact-item"><b>GitHub:</b> <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a></div>
+          <div class="contact-item"><b>Open to:</b> developer roles, AI evaluation work, bot/community tooling, documentation-heavy technical work, and creative systems projects.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const windows = [...document.querySelectorAll(".window")];
+    const dock = document.getElementById("dock");
+    let topZ = 50;
+    let activeWindowId = "";
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById("clock").textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    }
+
+    function focusWindow(win) {
+      topZ += 1;
+      activeWindowId = win.id;
+      windows.forEach(item => item.classList.toggle("is-active", item === win));
+      win.style.zIndex = topZ;
+      syncDock();
+    }
+
+    function openWindow(name) {
+      const win = document.getElementById(`window-${name}`);
+      if (!win) return;
+      win.classList.remove("hidden");
+      focusWindow(win);
+    }
+
+    function closeWindow(win) {
+      win.classList.add("hidden");
+      win.classList.remove("is-active");
+      if (activeWindowId === win.id) {
+        const next = windows.find(item => !item.classList.contains("hidden"));
+        if (next) focusWindow(next);
+        else {
+          activeWindowId = "";
+          syncDock();
+        }
+      } else {
+        syncDock();
+      }
+    }
+
+    function syncDock() {
+      dock.innerHTML = "";
+      windows.filter(win => !win.classList.contains("hidden")).forEach(win => {
+        const item = document.createElement("button");
+        const title = win.querySelector(".window-title").textContent;
+        const icon = win.querySelector(".window-icon").textContent.trim() || "*";
+        item.type = "button";
+        item.className = `dock-item${win.id === activeWindowId ? " active" : ""}`;
+        item.title = title;
+        item.setAttribute("aria-label", `Focus ${title}`);
+        item.textContent = icon;
+        item.addEventListener("click", () => focusWindow(win));
+        dock.appendChild(item);
+      });
+    }
+
+    function clampWindow(win) {
+      if (window.matchMedia("(max-width: 700px)").matches) return;
+      const rect = win.getBoundingClientRect();
+      const maxLeft = Math.max(16, window.innerWidth - rect.width - 16);
+      const maxTop = Math.max(64, window.innerHeight - rect.height - 96);
+      win.style.left = `${Math.min(Math.max(16, rect.left), maxLeft)}px`;
+      win.style.top = `${Math.min(Math.max(64, rect.top), maxTop)}px`;
+    }
+
+    document.querySelectorAll(".icon[data-window]").forEach(icon => {
+      icon.addEventListener("click", () => openWindow(icon.dataset.window));
     });
 
     const codeSamples = {
@@ -530,11 +1282,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("code-viewer-pre").textContent = sample.code;
         openWindow("code-viewer");
       });
-    });
-            
-    document.getElementById("print-resume")?.addEventListener("click", () => {
-      openWindow("resume");
-      window.print();
     });
 
     windows.forEach(win => {
