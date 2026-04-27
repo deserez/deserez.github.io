@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Deserez Krentz builds Discord bots, JCink/front-end systems, forum mini-apps, database-backed community tools, documentation, and polished creative systems." />
+  <meta name="description" content="Deserez Krentz is a Creative Systems Developer building Discord bots, JCink/forum systems, AI-style assistants, coded resumes, and polished community tools." />
   <meta property="og:title" content="Deserez Krentz | Creative Systems Developer" />
-  <meta property="og:description" content="Portfolio for bot development, JCink/front-end systems, community workflows, AI evaluation, writing, and UX-minded tools." />
+  <meta property="og:description" content="Portfolio for bot development, JCink/forum systems, AI evaluation, writing, and UX-minded tools." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://deserez.github.io/" />
   <meta name="theme-color" content="#fff8fb" />
@@ -35,6 +35,7 @@
       src: url("./fonts/FixederSys1x.ttf") format("truetype");
       font-display: swap;
     }
+
     :root {
       --bg-1: #fff8fb;
       --bg-2: #f4edf2;
@@ -55,6 +56,7 @@
       --mono-font: "Fixedersys", "SFMono-Regular", Consolas, monospace;
       --dock-h: 82px;
     }
+
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
@@ -80,11 +82,13 @@
       pointer-events: none;
       user-select: none;
     }
+
     button, a { font: inherit; }
     button:focus-visible, a:focus-visible {
       outline: 3px solid rgba(141, 79, 100, 0.45);
       outline-offset: 3px;
     }
+
     .desktop {
       position: relative;
       z-index: 1;
@@ -92,6 +96,7 @@
       padding: 24px 24px calc(var(--dock-h) + 18px);
       overflow: hidden;
     }
+
     .topbar {
       display: flex;
       align-items: center;
@@ -133,6 +138,7 @@
       font-size: 13px;
       font-weight: 700;
     }
+
     .desktop-grid {
       display: grid;
       grid-template-columns: repeat(2, 118px);
@@ -187,6 +193,7 @@
       text-shadow: 0 1px 6px rgba(38, 28, 34, 0.9);
       overflow-wrap: anywhere;
     }
+
     .profile-widget {
       position: absolute;
       right: 24px;
@@ -240,6 +247,7 @@
       font-size: 11px;
       line-height: 1.2;
     }
+
     .dock {
       position: absolute;
       left: 50%;
@@ -283,6 +291,7 @@
       border-color: rgba(141, 79, 100, 0.42);
       box-shadow: inset 0 0 0 2px rgba(141, 79, 100, 0.12), 0 10px 20px rgba(122, 82, 99, 0.1);
     }
+
     .window {
       position: absolute;
       z-index: 10;
@@ -366,6 +375,7 @@
       overflow: auto;
       padding: 22px;
     }
+
     .hero-name {
       margin: 0 0 8px;
       color: #3d3036;
@@ -405,6 +415,39 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
+    .about-photo {
+      overflow: hidden;
+      min-height: 360px;
+      padding: 0;
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.18), rgba(141,79,100,.18)),
+        rgba(255,255,255,.64);
+      box-shadow: 0 16px 30px rgba(122, 82, 99, 0.12);
+    }
+    .about-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 360px;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .about-photo.is-missing {
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+    .about-photo.is-missing::after {
+      content: "Portrait file pending: assets/about-portrait.jpg";
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
     .pill-row {
       display: flex;
       flex-wrap: wrap;
@@ -428,9 +471,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
       gap: 14px;
-    }
-    .project-grid--dense {
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     }
     .project-card, .resume-card {
       padding: 16px;
@@ -509,157 +549,15 @@
     }
     .feature-list {
       display: grid;
-      gap: 8px;
+      gap: 9px;
       margin: 12px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-    .feature-list li {
-      padding: 9px 10px;
-      border: 1px solid rgba(231, 212, 221, 0.82);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.56);
-      color: #4b3d44;
+      padding-left: 18px;
+      color: #3f3339;
       font-size: 13px;
-      line-height: 1.45;
+      line-height: 1.55;
     }
-    .sample-preview {
-      position: relative;
-      min-height: 150px;
-      margin: 0 0 14px;
-      overflow: hidden;
-      border: 1px solid rgba(183, 119, 141, 0.22);
-      border-radius: 14px;
-      background:
-        radial-gradient(circle at 18% 20%, rgba(183,119,141,.18), transparent 30%),
-        linear-gradient(135deg, rgba(255,255,255,.76), rgba(247,229,236,.68));
-    }
-    .sample-preview::after {
-      content: "Open full code";
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
-      padding: 7px 9px;
-      border: 1px solid rgba(183,119,141,0.28);
-      border-radius: 999px;
-      background: rgba(255,255,255,.84);
-      color: #523944;
-      font-size: 10px;
-      font-weight: 900;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .sample-preview--ledger {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 10px;
-      padding: 12px;
-    }
-    .ledger-panel {
-      display: grid;
-      gap: 8px;
-      min-width: 0;
-    }
-    .ledger-total {
-      display: grid;
-      place-items: center;
-      min-height: 72px;
-      border-radius: 12px;
-      background: rgba(48, 38, 44, 0.9);
-      color: #fff;
-      font-family: var(--mono-font);
-      font-size: 18px;
-    }
-    .ledger-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 7px 9px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.72);
-      color: #4d4047;
-      font-size: 12px;
-    }
-    .sample-preview--nations {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 8px;
-      padding: 12px;
-      min-height: 170px;
-    }
-    .nation-tile {
-      position: relative;
-      min-width: 0;
-      overflow: hidden;
-      border-radius: 12px;
-      background: linear-gradient(180deg, var(--tile), #3d3036);
-    }
-    .nation-tile span {
-      position: absolute;
-      left: 8px;
-      bottom: 8px;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
-    }
-    .sample-preview--profile {
-      display: grid;
-      grid-template-columns: .9fr 1.1fr;
-      gap: 10px;
-      padding: 12px;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(83,244,255,.24), transparent 30%),
-        radial-gradient(circle at 80% 80%, rgba(255,95,200,.2), transparent 32%),
-        linear-gradient(135deg, #07101a, #161020);
-    }
-    .profile-scan {
-      min-height: 132px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 12px;
-      background:
-        repeating-linear-gradient(to bottom, rgba(255,255,255,.06) 0 1px, transparent 1px 5px),
-        linear-gradient(180deg, rgba(83,244,255,.12), rgba(255,95,200,.1));
-    }
-    .profile-readout {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 7px;
-      align-content: center;
-    }
-    .profile-readout span {
-      padding: 8px;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 9px;
-      color: #eaf8ff;
-      font-family: var(--mono-font);
-      font-size: 11px;
-      text-transform: uppercase;
-    }
-    .sample-preview--tutorial {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 12px;
-    }
-    .tutorial-block {
-      padding: 10px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.72);
-      color: #4b3d44;
-      font-size: 12px;
-      line-height: 1.45;
-    }
-    .tutorial-block b {
-      display: block;
-      margin-bottom: 6px;
-      color: var(--rose-deep);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
+    .feature-list b { color: var(--rose-deep); }
+
     .rate-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
@@ -703,32 +601,17 @@
       text-align: right;
       white-space: nowrap;
     }
-    .code-viewer-pre {
-      max-height: 420px;
-      overflow: auto;
+
+    .code-preview-frame {
+      display: block;
+      width: 100%;
+      height: min(560px, calc(100vh - 330px));
+      min-height: 420px;
       margin: 12px 0 0;
-      padding: 14px;
       border: 1px solid rgba(183, 119, 141, 0.26);
       border-radius: 14px;
-      background: #22191e;
-      color: #fff7fb;
-      font: 12px/1.65 Consolas, "SFMono-Regular", monospace;
-      white-space: pre-wrap;
+      background: #fff;
     }
-    .contact-list {
-      display: grid;
-      gap: 12px;
-    }
-    .contact-item {
-      padding: 14px 16px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 14px;
-      background: rgba(255,255,255,0.70);
-      color: #453840;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .contact-item a { color: var(--rose-deep); font-weight: 800; text-decoration: none; }
     .resume-actions {
       display: flex;
       flex-wrap: wrap;
@@ -837,1527 +720,9 @@
       background: var(--rose-soft);
       color: #59464f;
       font-size: 12px;
-      font-weight: 800;
-      line-height: 1.1;
-    }
-    @media print {
-      body {
-        overflow: visible;
-        background: #fff;
-      }
-      body::before, .topbar, .desktop-grid, .profile-widget, .dock, .window-header, .resume-actions {
-        display: none !important;
-      }
-      .desktop {
-        height: auto;
-        padding: 0;
-        overflow: visible;
-      }
-      .window {
-        position: static !important;
-        display: none !important;
-        width: auto !important;
-        max-height: none;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        background: #fff;
-      }
-      #window-resume {
-        display: block !important;
-      }
-      .window-body {
-        max-height: none;
-        overflow: visible;
-        padding: 0;
-      }
-      .resume-sheet {
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        padding: 0;
-      }
-      .resume-name { font-size: 28px; }
-      .resume-section { break-inside: avoid; }
-    }
-    @media (max-width: 980px) {
-      .profile-widget { display: none; }
-      .window { width: calc(100vw - 42px); }
-      .split { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 700px) {
-      body { overflow: auto; }
-      .desktop {
-        min-height: 100%;
-        height: auto;
-        padding: 14px 14px 104px;
-        overflow: visible;
-      }
-      .topbar {
-        align-items: flex-start;
-        border-radius: 14px;
-      }
-      .brand { align-items: center; letter-spacing: 0.08em; }
-      .brand-title { white-space: normal; }
-      .desktop-grid {
-        grid-template-columns: repeat(3, minmax(86px, 1fr));
-        width: 100%;
-        grid-auto-rows: auto;
-        gap: 10px;
-      }
-      .icon {
-        width: 100%;
-        min-height: 96px;
-        padding: 8px 6px;
-      }
-      .icon-emoji {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        font-size: 21px;
-      }
-      .icon-label { font-size: 13px; }
-      .window {
-        position: relative;
-        left: auto !important;
-        top: auto !important;
-        width: 100%;
-        min-width: 0;
-        max-height: none;
-        margin-top: 16px;
-        border-radius: 18px;
-      }
-      .window.hidden { display: none; }
-      .window-header { cursor: default; }
-      .window-body { max-height: none; padding: 18px; }
-      .dock {
-        position: fixed;
-        bottom: 10px;
-        max-width: calc(100% - 20px);
-      }
-      .dock:empty::before { content: "Tap an icon to open a section"; }
-      .hero-name { font-size: 32px; }
-      .hero-sub { font-size: 16px; }
-    }
-  </style>
-</head>
-<body>
-  <main class="desktop" id="desktop">
-    <header class="topbar" aria-label="Portfolio top bar">
-      <div class="brand">
-        <span class="brand-mark">Dk</span>
-        <span class="brand-title">Deserez OS / Bots, Front-End Systems & Creative Tools</span>
-      </div>
-      <div class="clock" id="clock" aria-label="Current time">--:--</div>
-    </header>
-    <nav class="desktop-grid" aria-label="Portfolio sections">
-      <button class="icon" type="button" data-window="about" aria-label="Open about section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-notepad"></i></span>
-        <span class="icon-label">About.txt</span>
-      </button>
-      <button class="icon" type="button" data-window="projects" aria-label="Open projects section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-folder"></i></span>
-        <span class="icon-label">Projects</span>
-      </button>
-      <button class="icon" type="button" data-window="bots" aria-label="Open bots section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-robot-face"></i></span>
-        <span class="icon-label">Bots</span>
-      </button>
-      <button class="icon" type="button" data-window="apps" aria-label="Open apps section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-moon"></i></span>
-        <span class="icon-label">Apps</span>
-      </button>
-      <button class="icon" type="button" data-window="code" aria-label="Open code lab section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-code"></i></span>
-        <span class="icon-label">Code Lab</span>
-      </button>
-      <button class="icon" type="button" data-window="services" aria-label="Open services and rates section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-price"></i></span>
-        <span class="icon-label">Rates</span>
-      </button>
-      <button class="icon" type="button" data-window="resume" aria-label="Open coded resume section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-file-pdf"></i></span>
-        <span class="icon-label">Resume.html</span>
-      </button>
-      <button class="icon" type="button" data-window="contact" aria-label="Open contact section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-envelope-open"></i></span>
-        <span class="icon-label">Contact</span>
-      </button>
-      <a class="icon" href="https://github.com/deserez" target="_blank" rel="noreferrer" aria-label="Open GitHub profile">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-github"></i></span>
-        <span class="icon-label">GitHub</span>
-      </a>
-    </nav>
-    <aside class="profile-widget" aria-label="Quick profile">
-      <p class="widget-title">Quick Profile</p>
-      <p>Self-taught developer and writer building useful systems for communities: bots, web layouts, AI-style assistants, documentation, and UX-minded tools.</p>
-      <div class="profile-stats">
-        <div class="stat"><strong>20</strong><span>years coding and writing</span></div>
-        <div class="stat"><strong>4</strong><span>featured build areas</span></div>
-        <div class="stat"><strong>1</strong><span>public resume, privacy-safe</span></div>
-      </div>
-    </aside>
-    <div class="dock" id="dock" aria-label="Open windows"></div>
-    <section class="window" id="window-about" style="left: 178px; top: 126px;" aria-labelledby="title-about">
-      <div class="window-header">
-        <div class="window-title-wrap">
-          <div class="window-icon" aria-hidden="true"><i class="icofont-notepad"></i></div>
-          <div class="window-title" id="title-about">About.txt</div>
-        </div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize About"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus About"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close About"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="split">
-          <div>
-            <p class="eyebrow">Bot Developer / Front-End Systems Builder / Technical Writer</p>
-            <h1 class="hero-name">Deserez Krentz</h1>
-            <p class="hero-sub">Building Discord bots, JCink/front-end systems, forum mini-apps, documentation, and polished community workflows.</p>
-            <p class="copy">I have been coding and writing for about twenty years, with recent work focused on custom Discord bot development, database-backed bot systems, JCink/front-end tooling, deployment troubleshooting, AI-style assistant workflows, technical writing, and UX polish.</p>
-            <p class="copy">My favorite projects sit where logic and voice meet: tools that organize complex rules, help people navigate systems, and still feel memorable to use.</p>
-            <div class="pill-row" aria-label="Core skills">
-              <span class="pill">HTML</span>
-              <span class="pill">CSS</span>
-              <span class="pill">JavaScript</span>
-              <span class="pill">Node.js</span>
-              <span class="pill">Discord.js</span>
-              <span class="pill">SQLite</span>
-              <span class="pill">AI Evaluation</span>
-              <span class="pill">Prompt Engineering</span>
-              <span class="pill">Technical Writing</span>
-              <span class="pill">JCink / Forum Systems</span>
-            </div>
-          </div>
-          <aside class="callout">
-            <strong>What I Bring</strong>
-            <p class="copy">A practical mix of code, documentation, customer-facing problem solving, and creative systems design.</p>
-            <p class="copy">I am especially strong at turning messy rules, workflows, or community needs into tools people can actually use.</p>
-          </aside>
-        </div>
-      </div>
-    </section>
-    <section class="window hidden" id="window-projects" style="left: 252px; top: 104px;" aria-labelledby="title-projects">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-folder"></i></div><div class="window-title" id="title-projects">Projects</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Projects"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Projects"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Projects"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p class="eyebrow">Featured Work</p>
-        <div class="project-grid">
-          <button class="project-card" type="button" data-code-sample="ledger">
-            <h3>Fisto Unit</h3>
-            <p>Fallout-inspired Discord RPG bot designed around player progression, inventory, raids, shops, perks, and a caps economy.</p>
-            <div class="project-meta">
-              <span><b>Role:</b> Bot developer, systems designer, writer</span>
-              <span><b>Stack:</b> Node.js, Discord.js, SQLite</span>
-              <span><b>Focus:</b> Game loops, command UX, data-backed progression</span>
-            </div>
-            <div class="pill-row"><span class="pill">Node.js</span><span class="pill">Discord.js</span><span class="pill">SQLite</span></div>
-            <div class="link-row"><a class="text-link" href="https://github.com/deserez" target="_blank" rel="noreferrer">GitHub Profile</a><span class="text-link" aria-disabled="true">Private Build</span></div>
-            <div class="terminal-note">system status: online // modules: raids, economy, loot, progression</div>
-          </article>
-          <article class="project-card">
-            <h3>Darktree Studios: Asheron</h3>
-            <p>Discord bot for the Darktree Studios community, built around structured server support, roleplay utility, automation, and cleaner staff/player workflows.</p>
-            <div class="project-meta">
-              <span><b>Role:</b> Bot developer, workflow designer, community systems builder</span>
-              <span><b>Stack:</b> Discord bot architecture, command UX, persistent data patterns</span>
-              <span><b>Focus:</b> Server automation, community support, feature discoverability</span>
-            </div>
-            <div class="pill-row"><span class="pill">Discord Bot</span><span class="pill">Automation</span><span class="pill">Community Ops</span></div>
-            <div class="link-row"><span class="text-link" aria-disabled="true">Private Community Build</span></div>
-            <div class="terminal-note">system status: documented // modules: moderation support, roleplay tools, utility commands, staff workflows</div>
-          </article>
-          <article class="project-card">
-            <h3>Hashirama</h3>
-            <p>AI-style Discord assistant concept for the Naruto Nindo roleplay community, built to help users navigate rules, lore, mechanics, and handbook systems.</p>
-            <div class="project-meta">
-              <span><b>Role:</b> Assistant designer, workflow builder, technical writer</span>
-              <span><b>Focus:</b> Structured knowledge support, conversational UX</span>
-            </div>
-            <div class="pill-row"><span class="pill">AI-style UX</span><span class="pill">Bot Logic</span><span class="pill">Documentation</span></div>
-            <div class="link-row"><span class="text-link" aria-disabled="true">Community Tool</span></div>
-          </article>
-          <article class="project-card">
-            <h3>Lunaria</h3>
-            <p>Mobile app concept for period, fertility, and pregnancy tracking with a supportive tone, feminine UI direction, and careful attention to user trust.</p>
-            <div class="project-meta">
-              <span><b>Role:</b> Product thinker, UX writer, interface designer</span>
-              <span><b>Focus:</b> Wellness workflows, privacy-minded design, mobile polish</span>
-            </div>
-            <div class="pill-row"><span class="pill">App Design</span><span class="pill">UX Writing</span><span class="pill">Mobile UI</span></div>
-            <div class="link-row"><span class="text-link" aria-disabled="true">In Development</span></div>
-          </article>
-          <article class="project-card">
-            <h3>Nindo Web</h3>
-            <p>Custom JCink forum systems: stat pages, village ledgers, resource registries, profile modules, tutorials, and forum-row mockups built for roleplay communities.</p>
-            <div class="project-meta">
-              <span><b>Role:</b> Front-end customizer, systems designer, technical educator</span>
-              <span><b>Stack:</b> HTML, CSS, JavaScript, JCink doHTML</span>
-              <span><b>Outcome:</b> Reusable UI patterns for complex character, village, and community data</span>
-            </div>
-            <div class="pill-row"><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">Community UX</span></div>
-            <div class="link-row"><button class="file-link" type="button" data-window="code">View Code Lab</button><span class="text-link" aria-disabled="true">Community Assets</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="window hidden" id="window-bots" style="left: 218px; top: 162px;" aria-labelledby="title-bots">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-robot-face"></i></div><div class="window-title" id="title-bots">Bots</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Bots"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Bots"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Bots"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="project-grid">
-          <article class="project-card project-card--wide">
-            <h3>Darktree Studios: Asheron</h3>
-            <p>Asheron is positioned as a community Discord bot for Darktree Studios, focused on making staff and player workflows easier to manage inside Discord.</p>
-            <ul class="feature-list">
-              <li><b>Community Utility:</b> helper commands, structured responses, and quick-access information for recurring server needs.</li>
-              <li><b>Roleplay Support:</b> tools for character/community workflows, request handling, and organized user interaction.</li>
-              <li><b>Staff Workflow Support:</b> automation patterns for repetitive tasks, moderation-adjacent support, and cleaner internal coordination.</li>
-              <li><b>Scalable Direction:</b> built to grow into persistent data, richer command modules, and server-specific quality-of-life features.</li>
-            </ul>
-            <div class="pill-row"><span class="pill">Discord.js</span><span class="pill">Bot UX</span><span class="pill">Automation</span><span class="pill">Community Systems</span></div>
-            <div class="terminal-note">private community bot // exact command list can be expanded when source files are added</div>
-          </article>
-          <article class="project-card">
-            <h3>Fisto Unit</h3>
-            <p>Designed as an immersive game bot with command-based interaction, persistent player data, economy loops, loot, raids, and progression.</p>
-            <div class="terminal-note">developer note: built for replayability, flavor, and clear user feedback</div>
-          </article>
-          <article class="project-card">
-            <h3>Hashirama</h3>
-            <p>Planned as a structured assistant that turns a large roleplay handbook into helpful, conversational guidance for players and staff.</p>
-            <div class="terminal-note">developer note: rules clarity + lore support + low-friction help</div>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="window hidden" id="window-apps" style="left: 300px; top: 188px;" aria-labelledby="title-apps">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-moon"></i></div><div class="window-title" id="title-apps">Apps</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Apps"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Apps"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Apps"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <article class="project-card">
-          <h3>Lunaria</h3>
-          <p>Lunaria is the app direction where product thinking, UX writing, and polished interface design come forward: a calm cycle, fertility, and pregnancy tracker built around supportive user flows.</p>
-          <div class="project-meta">
-            <span><b>Design values:</b> clarity, privacy, reassurance, graceful mobile interactions</span>
-            <span><b>Status:</b> in development</span>
-          </div>
-        </article>
-      </div>
-    </section>
-    <section class="window hidden" id="window-code" style="left: 232px; top: 92px; width: min(980px, calc(100vw - 100px));" aria-labelledby="title-code">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-code"></i></div><div class="window-title" id="title-code">Code Lab</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Code Lab"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Code Lab"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Code Lab"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p class="eyebrow">Selected UI Systems / JCink + Front-End Work</p>
-        <p class="copy">These examples show the shape of my front-end work: reusable templates, rule-heavy dashboards, data summaries, hover states, copy blocks, tab systems, animated canvases, and community tools designed for people who need to update them without rebuilding everything.</p>
-        <div class="project-grid project-grid--dense">
-          <article class="project-card">
-            <div class="sample-preview sample-preview--ledger" aria-hidden="true">
-              <div class="ledger-panel">
-                <div class="ledger-total">7,000,000</div>
-                <div class="ledger-row"><span>Claims</span><b>+131,250</b></div>
-                <div class="ledger-row"><span>Purchases</span><b>-525,000</b></div>
-              </div>
-              <div class="ledger-panel">
-                <div class="ledger-row"><span>Mines</span><b>100 pts</b></div>
-                <div class="ledger-row"><span>Corps</span><b>5 / week</b></div>
-                <div class="ledger-row"><span>Intel</span><b>Active</b></div>
-                <div class="ledger-row"><span>Notes</span><b>Open</b></div>
-              </div>
-            </div>
-            <h3>Iwagakure Treasury Register</h3>
-            <p>Village treasury and resource dashboard with tabbed views for ryō, mines, production stock, raid intelligence, notes, and copyable templates.</p>
-            <div class="project-meta">
-              <span><b>Built:</b> data-driven HTML, CSS, JavaScript rendering</span>
-              <span><b>Features:</b> calculated totals, categorized logs, hidden data sets, reusable entry templates</span>
-            </div>
-          </button>
-          <button class="project-card" type="button" data-code-sample="nations">
-            <div class="sample-preview sample-preview--nations" aria-hidden="true">
-              <div class="nation-tile" style="--tile:#dbab39"><span>fire</span></div>
-              <div class="nation-tile" style="--tile:#94b447"><span>earth</span></div>
-              <div class="nation-tile" style="--tile:#00ac9f"><span>water</span></div>
-              <div class="nation-tile" style="--tile:#42b472"><span>wind</span></div>
-              <div class="nation-tile" style="--tile:#5166d6"><span>lightning</span></div>
-            </div>
-            <h3>Five Great Nations Forum Rows</h3>
-            <p>Interactive forum-row mockup with expanding hover panels, recent-post metadata, themed nation colors, image overlays, and mobile fallbacks.</p>
-            <div class="project-meta">
-              <span><b>Built:</b> responsive CSS layout and hover interaction design</span>
-              <span><b>Focus:</b> atmosphere, scanability, forum navigation, graceful mobile behavior</span>
-            </div>
-          </button>
-          <button class="project-card" type="button" data-code-sample="profile">
-            <div class="sample-preview sample-preview--profile" aria-hidden="true">
-              <div class="profile-scan"></div>
-              <div class="profile-readout">
-                <span>body 08</span><span>reflex 17</span><span>intel 20</span><span>ram 34</span><span>armor 312</span><span>threat low</span>
-              </div>
-            </div>
-            <h3>Cyberpunk Mini Profile</h3>
-            <p>Animated mini profile concept with threat-state themes, hover reveal stats, scanline styling, awards, tooltips, and cyberdeck-style readouts.</p>
-            <div class="project-meta">
-              <span><b>Built:</b> HTML/CSS animation, hover states, responsive profile cards</span>
-              <span><b>Focus:</b> visual systems, game-like information hierarchy, microinteractions</span>
-            </div>
-          </button>
-          <button class="project-card" type="button" data-code-sample="tutorial">
-            <div class="sample-preview sample-preview--tutorial" aria-hidden="true">
-              <div class="tutorial-block"><b>Coding 101</b> class naming, wrappers, margin, padding, positioning</div>
-              <div class="tutorial-block"><b>Copy Blocks</b> beginner-safe examples with highlighted textareas</div>
-              <div class="tutorial-block"><b>Intermediate</b> fonts, overlays, scrollbars, image headers</div>
-              <div class="tutorial-block"><b>Troubleshooting</b> broken tags, centering, absolute positioning</div>
-            </div>
-            <h3>Coding 101 Tutorial</h3>
-            <p>Beginner-to-intermediate coding guide for JCink/doHTML users, teaching practical template structure, CSS concepts, and debugging habits.</p>
-            <div class="project-meta">
-              <span><b>Built:</b> technical tutorial, live previews, copyable code blocks</span>
-              <span><b>Focus:</b> making code approachable while teaching maintainable habits</span>
-            </div>
-          </button>
-          <button class="project-card project-card--wide" type="button" data-code-sample="statpages">
-            <h3>Nindo Character Stat Pages</h3>
-            <p>Large character dossiers for Suiren and Sumire with tab navigation, animated hero canvases, inventory tables, jutsu counters, relationship plotters, seal/body registries, prominence and ryō calculators, templates, and sorted material/thread lists.</p>
-            <div class="project-meta">
-              <span><b>Built:</b> complex HTML/CSS/JavaScript interfaces inside JCink doHTML constraints</span>
-              <span><b>Features:</b> tabs, accordions, animated particles/lightning, computed rank caps, ledger totals, sorted data, copyable templates</span>
-              <span><b>Value:</b> converts dense roleplay mechanics into a readable, updateable, visually polished dashboard</span>
-            </div>
-            <div class="pill-row"><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">Data UI</span><span class="pill">Technical Writing</span><span class="pill">Community Tools</span></div>
-          </button>
-        </div>
-      </div>
-    </section>
-    <section class="window hidden" id="window-code-viewer" style="left: 286px; top: 118px; width: min(880px, calc(100vw - 100px));" aria-labelledby="title-code-viewer">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-code"></i></div><div class="window-title" id="title-code-viewer">Full Code</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Full Code"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Full Code"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Full Code"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p class="eyebrow" id="code-viewer-kicker">Code Sample</p>
-        <h2 class="hero-name" id="code-viewer-title">Selected Code</h2>
-        <p class="copy" id="code-viewer-desc">Choose a Code Lab preview to view the implementation notes and source structure.</p>
-        <pre class="code-viewer-pre" id="code-viewer-pre"></pre>
-      </div>
-    </section>
-    <section class="window hidden" id="window-services" style="left: 260px; top: 84px; width: min(980px, calc(100vw - 100px));" aria-labelledby="title-services">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-price"></i></div><div class="window-title" id="title-services">Services / Rates</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Services"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Services"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Services"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <p class="eyebrow">Development & Creative Systems Rate Card</p>
-        <p class="copy">Rates vary by scope, complexity, integrations, and turnaround. Larger builds are quoted after planning so the work is priced around the actual system, not a vague guess.</p>
-        <div class="rate-grid">
-          <article class="rate-card">
-            <h3>Standard Rates</h3>
-            <ul class="rate-list">
-              <li><span>Hourly development</span><b>$50/hr</b></li>
-              <li><span>Rush / emergency</span><b>$75/hr</b></li>
-              <li><span>Consulting / planning</span><b>$40/hr</b></li>
-              <li><span>Half-day block</span><b>$175</b></li>
-              <li><span>Full-day block</span><b>$350</b></li>
-              <li><span>Weekly project block</span><b>$1,200</b></li>
-            </ul>
-          </article>
-          <article class="rate-card">
-            <h3>Discord Bots</h3>
-            <ul class="rate-list">
-              <li><span>Simple bot</span><b>$150-$400</b></li>
-              <li><span>Small server bot</span><b>$500-$1,000</b></li>
-              <li><span>Custom operations bot</span><b>$1,000-$2,500</b></li>
-              <li><span>Large studio bot</span><b>$2,500-$5,000+</b></li>
-            </ul>
-          </article>
-          <article class="rate-card">
-            <h3>Hosting & Support</h3>
-            <ul class="rate-list">
-              <li><span>Basic hosting</span><b>$50-$100/mo</b></li>
-              <li><span>Hosting + light support</span><b>$150-$200/mo</b></li>
-              <li><span>Active support</span><b>$250-$500/mo</b></li>
-              <li><span>Game / studio integration</span><b>$500-$1,500+/mo</b></li>
-            </ul>
-          </article>
-          <article class="rate-card">
-            <h3>JCink / Forum Coding</h3>
-            <ul class="rate-list">
-              <li><span>Small fix</span><b>$40-$75</b></li>
-              <li><span>Posting template</span><b>$150-$350</b></li>
-              <li><span>Character / stat page</span><b>$300-$700</b></li>
-              <li><span>Multi-tab system</span><b>$500-$1,200</b></li>
-              <li><span>Automated forum system</span><b>$800-$2,500+</b></li>
-            </ul>
-          </article>
-          <article class="rate-card">
-            <h3>Web / Layout Work</h3>
-            <ul class="rate-list">
-              <li><span>Landing page</span><b>$300-$800</b></li>
-              <li><span>Portfolio / personal site</span><b>$500-$1,500</b></li>
-              <li><span>Multi-page static site</span><b>$1,000-$3,000</b></li>
-              <li><span>Interactive tool / dashboard</span><b>$1,500-$5,000+</b></li>
-            </ul>
-          </article>
-          <article class="rate-card">
-            <h3>Docs & Community Systems</h3>
-            <ul class="rate-list">
-              <li><span>Simple guide</span><b>$75-$150</b></li>
-              <li><span>Bot user guide</span><b>$150-$400</b></li>
-              <li><span>Staff handbook</span><b>$300-$800</b></li>
-              <li><span>Operations manual</span><b>$800-$1,500+</b></li>
-              <li><span>Server setup</span><b>$300-$1,000</b></li>
-              <li><span>Server + bot integration</span><b>$1,000-$2,500</b></li>
-            </ul>
-          </article>
-          <article class="rate-card project-card--wide">
-            <h3>Payment Terms</h3>
-            <p>Projects over $300 require a 50% deposit before work begins, with the remaining 50% due before final delivery, deployment, or handoff.</p>
-            <p>Each project includes up to 2 rounds of reasonable revisions. Additional revisions, major redesigns, new systems, or scope changes are billed at the standard hourly rate.</p>
-            <p>Monthly hosting/support is billed at the beginning of each month. Missed payment may pause hosting and support until the account is current.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-    <section class="window hidden" id="window-resume" style="left: 130px; top: 76px; width: min(900px, calc(100vw - 110px));" aria-labelledby="title-resume">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-document"></i></div><div class="window-title" id="title-resume">Resume.html</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Resume"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Resume"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Resume"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="resume-actions">
-          <button class="file-link" type="button" id="print-resume">Print / Save PDF</button>
-          <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
-        </div>
-        <article class="resume-sheet" aria-label="Deserez Krentz coded resume">
-          <header class="resume-head">
-            <div>
-              <h2 class="resume-name">Deserez Krentz</h2>
-              <p class="resume-role">Bot Developer / Front-End Systems Builder / Technical Writer</p>
-            </div>
-            <div class="resume-contact">
-              <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a>
-              <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a>
-              <span>deserez.github.io</span>
-            </div>
-          </header>
-          <section class="resume-section">
-            <h3>Profile</h3>
-            <p>Self-taught developer, writer, and digital systems builder with about twenty years of coding and writing experience. Builds Discord bots, JCink/front-end systems, database-backed bot tools, forum mini-apps, documentation-heavy systems, deployment troubleshooting workflows, and polished community tools. Strong at turning complex rules, user needs, and operational workflows into clear, usable experiences.</p>
-          </section>
-          <section class="resume-section">
-            <h3>Featured Projects</h3>
-            <div class="resume-grid">
-              <div class="resume-item">
-                <h4>Fisto Unit</h4>
-                <p class="resume-meta">Node.js / Discord.js / SQLite</p>
-                <p>Fallout-inspired Discord RPG bot with inventory systems, caps economy, perks, shops, raids, and player progression.</p>
-              </div>
-              <div class="resume-item">
-                <h4>Darktree Studios: Asheron</h4>
-                <p class="resume-meta">Discord community bot / automation / workflow design</p>
-                <p>Community Discord bot focused on server utility, roleplay support, staff workflows, command UX, and scalable automation patterns.</p>
-              </div>
-              <div class="resume-item">
-                <h4>Hashirama</h4>
-                <p class="resume-meta">AI-style assistant / Discord workflows</p>
-                <p>Assistant concept for the Naruto Nindo roleplay community, focused on rules guidance, handbook navigation, lore support, and structured conversational help.</p>
-              </div>
-              <div class="resume-item">
-                <h4>Lunaria</h4>
-                <p class="resume-meta">Mobile product design / UX writing</p>
-                <p>Cycle, fertility, and pregnancy tracking app concept centered on supportive UX, privacy-minded flows, and polished interface direction.</p>
-              </div>
-              <div class="resume-item">
-                <h4>Nindo Web / Forum Design</h4>
-                <p class="resume-meta">HTML / CSS / community customization</p>
-                <p>Custom JCink/doHTML systems including character stat dashboards, village ledgers, forum-row mockups, mini profiles, tutorials, templates, and calculated resource trackers.</p>
-              </div>
-            </div>
-          </section>
-          <section class="resume-section">
-            <h3>Experience</h3>
-            <div class="resume-item">
-              <h4>Broker / Customer Service Representative</h4>
-              <p class="resume-meta">Cole International</p>
-              <ul class="resume-list">
-                <li>Managed documentation-heavy workflows and internal database records with attention to accuracy, compliance, and traceability.</li>
-                <li>Reviewed client and shipment information, resolved discrepancies, and communicated clearly across customer and internal channels.</li>
-                <li>Built long-term client trust through organized follow-up, practical problem solving, and calm handling of time-sensitive issues.</li>
-                <li>Applied analytical thinking in a high-detail environment where written clarity, accuracy, and process discipline mattered daily.</li>
-              </ul>
-            </div>
-            <div class="resume-item">
-              <h4>Manager</h4>
-              <p class="resume-meta">New Orleans Pizza</p>
-              <ul class="resume-list">
-                <li>Oversaw daily operations, scheduling, inventory, reporting, cash procedures, and team coordination.</li>
-                <li>Trained new staff and maintained reliable service standards in a fast-moving customer-facing environment.</li>
-              </ul>
-            </div>
-          </section>
-          <section class="resume-section">
-            <h3>Skills</h3>
-            <ul class="resume-skill-cloud" aria-label="Resume skills">
-              <li>HTML</li>
-              <li>CSS</li>
-              <li>JavaScript</li>
-              <li>Node.js</li>
-              <li>Discord.js</li>
-              <li>SQLite</li>
-              <li>GitHub</li>
-              <li>Debugging</li>
-              <li>Prompt Engineering</li>
-              <li>AI Evaluation</li>
-              <li>Technical Writing</li>
-              <li>Documentation</li>
-              <li>Community UX</li>
-              <li>Creative Systems</li>
-              <li>JCink / doHTML</li>
-              <li>Responsive UI</li>
-              <li>Data Dashboards</li>
-            </ul>
-          </section>
-          <section class="resume-section">
-            <h3>Education</h3>
-            <div class="resume-item">
-              <h4>High School Diploma</h4>
-              <p class="resume-meta">Simcoe Composite High School</p>
-            </div>
-          </section>
-        </article>
-      </div>
-    </section>
-    <section class="window hidden" id="window-contact" style="left: 338px; top: 146px; width: min(540px, calc(100vw - 100px));" aria-labelledby="title-contact">
-      <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-envelope-open"></i></div><div class="window-title" id="title-contact">Contact</div></div>
-        <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Contact"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Contact"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Contact"></button>
-        </div>
-      </div>
-      <div class="window-body">
-        <div class="contact-list">
-          <div class="contact-item"><b>Email:</b> <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a></div>
-          <div class="contact-item"><b>GitHub:</b> <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a></div>
-          <div class="contact-item"><b>Open to:</b> developer roles, AI evaluation work, bot/community tooling, documentation-heavy technical work, and creative systems projects.</div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <script>
-    const windows = [...document.querySelectorAll(".window")];
-    const dock = document.getElementById("dock");
-    let topZ = 50;
-    let activeWindowId = "";
-    function updateClock() {
-      const now = new Date();
-      document.getElementById("clock").textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    }
-    function focusWindow(win) {
-      topZ += 1;
-      activeWindowId = win.id;
-      windows.forEach(item => item.classList.toggle("is-active", item === win));
-      win.style.zIndex = topZ;
-      syncDock();
-    }
-    function openWindow(name) {
-      const win = document.getElementById(`window-${name}`);
-      if (!win) return;
-      win.classList.remove("hidden");
-      focusWindow(win);
-    }
-    function closeWindow(win) {
-      win.classList.add("hidden");
-      win.classList.remove("is-active");
-      if (activeWindowId === win.id) {
-        const next = windows.find(item => !item.classList.contains("hidden"));
-        if (next) focusWindow(next);
-        else {
-          activeWindowId = "";
-          syncDock();
-        }
-      } else {
-        syncDock();
-      }
-    }
-    function syncDock() {
-      dock.innerHTML = "";
-      windows.filter(win => !win.classList.contains("hidden")).forEach(win => {
-        const item = document.createElement("button");
-        const title = win.querySelector(".window-title").textContent;
-        const icon = win.querySelector(".window-icon").textContent.trim() || "*";
-        item.type = "button";
-        item.className = `dock-item${win.id === activeWindowId ? " active" : ""}`;
-        item.title = title;
-        item.setAttribute("aria-label", `Focus ${title}`);
-        item.textContent = icon;
-        item.addEventListener("click", () => focusWindow(win));
-        dock.appendChild(item);
-      });
-    }
-    function clampWindow(win) {
-      if (window.matchMedia("(max-width: 700px)").matches) return;
-      const rect = win.getBoundingClientRect();
-      const maxLeft = Math.max(16, window.innerWidth - rect.width - 16);
-      const maxTop = Math.max(64, window.innerHeight - rect.height - 96);
-      win.style.left = `${Math.min(Math.max(16, rect.left), maxLeft)}px`;
-      win.style.top = `${Math.min(Math.max(64, rect.top), maxTop)}px`;
-    }
-    document.querySelectorAll(".icon[data-window]").forEach(icon => {
-      icon.addEventListener("click", () => openWindow(icon.dataset.window));
-    });
-    document.querySelectorAll("button[data-window]:not(.icon)").forEach(button => {
-      button.addEventListener("click", () => openWindow(button.dataset.window));
-    });
-    const codeSamples = {
-      ledger: {
-        title: "Iwagakure Treasury Register",
-        desc: "Representative source structure for the treasury/resource registry: tab inputs, data sets, calculated totals, and rendered logs.",
-        code: `<div class="shinobiViewport">
-  <div class="shinobiStat village-iwa iwaLedgerPage">
-    <input type="radio" name="iwaLedgerTab" id="iwaTabTreasury" checked>
-    <input type="radio" name="iwaLedgerTab" id="iwaTabMines">
-    <input type="radio" name="iwaLedgerTab" id="iwaTabCorps">
-    <div class="iwaLedgerTabs">
-      <label for="iwaTabTreasury">Treasury</label>
-      <label for="iwaTabMines">Hannya Mines</label>
-      <label for="iwaTabCorps">Explosion Corps</label>
-    </div>
-    <section class="iwaPaneTreasury">
-      <div id="iwaRyoDisplay">0</div>
-      <div id="iwaRyoLog"></div>
-    </section>
-    <div class="iwaDataSet" data-set="treasury">
-      <div class="iwaEntry" data-type="claim" data-amount="131250">
-        <div class="iwaEntryLabel">Weekly village income</div>
-        <div class="iwaEntryNote">2026-03-29 • 4 Legitimacy</div>
-      </div>
-      <div class="iwaEntry" data-type="purchase" data-amount="525000">
-        <div class="iwaEntryLabel">Hannya Mine</div>
-        <div class="iwaEntryNote">Purchase link / source</div>
-      </div>
-    </div>
-  </div>
-</div>
-function renderTreasury(root) {
-  let claims = 0;
-  let purchases = 0;
-  root.querySelectorAll('[data-set="treasury"] .iwaEntry').forEach(entry => {
-    const amount = Number(entry.dataset.amount || 0);
-    if (entry.dataset.type === "claim") claims += amount;
-    if (entry.dataset.type === "purchase") purchases += amount;
-  });
-  root.querySelector("#iwaRyoDisplay").textContent =
-    (claims - purchases).toLocaleString();
-}`
-      },
-      nations: {
-        title: "Five Great Nations Forum Rows",
-        desc: "Expandable forum-row layout pattern with nation colors, recent-post metadata, image overlays, hover expansion, and mobile fallback.",
-        code: `<div class="greatNationsGrid">
-  <div class="forumrow group-1">
-    <a href="#" class="nationMock nation-fire">
-      <div class="nationMockImage"></div>
-      <div class="nationMockName">land of fire</div>
-      <div class="nationRecent">
-        <div class="nationRecentAvatar"></div>
-        <div class="nationRecentInfo">
-          <div class="nationRecentTopic">embers over the valley</div>
-          <div class="nationRecentUser">username here</div>
-        </div>
-      </div>
-    </a>
-  </div>
-</div>
-.greatNationsGrid {
-  display: flex;
-  gap: 24px;
-}
-.forumrow {
-  flex: 1 1 0;
-  transition: flex .55s cubic-bezier(.22,.61,.36,1);
-}
-.greatNationsGrid:hover .forumrow { flex: .45 1 0; }
-.greatNationsGrid .forumrow:hover { flex: 4.4 1 0; }
-.nationRecent {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity .35s ease, transform .35s ease;
-}
-.forumrow:hover .nationRecent {
-  opacity: 1;
-  transform: translateY(0);
-}`
-      },
-      profile: {
-        title: "Cyberpunk Mini Profile",
-        desc: "Profile card with threat-state themes, hover stat reveal, scanline effects, tooltips, awards, and responsive fallback.",
-        code: `<div class="cyberStatV2 threat-low">
-  <div class="csv2-top">
-    <span class="csv2-chip">night city archive</span>
-    <span class="csv2-chip alert">threat // low</span>
-  </div>
-  <div class="csv2-portrait">
-    <div class="csv2-portrait__name" data-text="diangel">diangel</div>
-    <div class="csv2-portrait__hover">
-      <div class="csv2-hoverGrid">
-        <div><b>body</b><span>08</span></div>
-        <div><b>reflexes</b><span>17</span></div>
-        <div><b>intelligence</b><span>20</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-.cyberStatV2 {
-  --cyan:#53f4ff;
-  --pink:#ff5fc8;
-  background: linear-gradient(135deg,#060910,#0d1320);
-  border: 1px solid rgba(255,255,255,.11);
-}
-.cyberStatV2.threat-low {
-  --pink:#7dffcb;
-}
-.csv2-portrait__hover {
-  opacity: 0;
-  backdrop-filter: blur(8px);
-  transition: opacity .35s ease;
-}
-.csv2-portrait:hover .csv2-portrait__hover {
-  opacity: 1;
-}`
-      },
-      tutorial: {
-        title: "Coding 101 Tutorial",
-        desc: "Teaching layout with table of contents, live examples, copyable code blocks, troubleshooting, and beginner-safe doHTML examples.",
-        code: `<div class="c101">
-  <div class="c101__head">
-    <div class="c101__tag">jcink • dohtml • beginner guide</div>
-    <div class="c101__title">welcome to <span>coding 101</span></div>
-  </div>
-  <div class="c101Index__list">
-    <a href="#c101-naming">naming your code</a>
-    <a href="#c101-anatomy">anatomy of a post template</a>
-    <a href="#c101-troubleshoot">troubleshooting checklist</a>
-  </div>
-  <div class="c101CopyWrap">
-    <button onclick="this.nextElementSibling.select()">select all</button>
-    <textarea readonly>[*dohtml]
-<div id="c101-postWrap">your writing goes here</div>
-[/*dohtml]</textarea>
-  </div>
-</div>
-.c101 {
-  width: 650px;
-  margin: 18px auto;
-  border-radius: 16px;
-  background: radial-gradient(circle at top right, rgba(243,182,201,.18), transparent 30%), #120d0d;
-  color: #f8efef;
-}
-.c101Copy {
-  width: 100%;
-  height: 220px;
-  font: 400 11px/1.7 Consolas, monospace;
-}`
-      },
-      statpages: {
-        title: "Nindo Character Stat Pages",
-        desc: "Large dashboard pattern for character dossiers with tabs, computed jutsu caps, ledgers, thread sorting, material sorting, and animated hero canvases.",
-        code: `<div class="kumoStat">
-  <div class="kumoStat__hero">
-    <canvas class="kumoLightningCanvas"></canvas>
-    <div class="kumoStat__heroText">
-      <h1>Sumire Ikebana</h1>
-      <div class="kumoStat__subtitle">Violet Flame of Kumogakure</div>
-    </div>
-  </div>
-  <div class="kumoTabs__nav">
-    <button data-tab="kumo-basics" class="kumoTabButton is-active">Basics</button>
-    <button data-tab="kumo-jutsu" class="kumoTabButton">Jutsu</button>
-    <button data-tab="kumo-promryo" class="kumoTabButton">Prom / Ryō</button>
-  </div>
-  <section id="kumo-jutsu" class="kumoPanel">
-    <span class="js-current-rank">B-Rank</span>
-    <span class="js-b-rank-display">0 / Unlimited</span>
-  </section>
-</div>
-document.addEventListener("DOMContentLoaded", () => {
-  const root = document.querySelector(".kumoStat");
-  const buttons = root.querySelectorAll(".kumoTabButton");
-  const panels = root.querySelectorAll(".kumoPanel");
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      buttons.forEach(btn => btn.classList.remove("is-active"));
-      panels.forEach(panel => panel.classList.remove("is-active"));
-      button.classList.add("is-active");
-      root.querySelector("#" + button.dataset.tab)?.classList.add("is-active");
-    });
-  });
-});`
-      }
-    };
-    document.querySelectorAll("[data-code-sample]").forEach(button => {
-      button.addEventListener("click", () => {
-        const sample = codeSamples[button.dataset.codeSample];
-        if (!sample) return;
-        document.getElementById("code-viewer-kicker").textContent = "Code Lab / Source Preview";
-        document.getElementById("code-viewer-title").textContent = sample.title;
-        document.getElementById("code-viewer-desc").textContent = sample.desc;
-        document.getElementById("code-viewer-pre").textContent = sample.code;
-        openWindow("code-viewer");
-      });
-    });
-    document.getElementById("print-resume")?.addEventListener("click", () => {
-      openWindow("resume");
-      window.print();
-    });
-    windows.forEach(win => {
-      win.addEventListener("mousedown", () => focusWindow(win));
-      win.querySelectorAll(".ctrl").forEach(btn => {
-        btn.addEventListener("click", event => {
-          event.stopPropagation();
-          const action = btn.dataset.action;
-          if (action === "close" || action === "minimize") closeWindow(win);
-          if (action === "focus") focusWindow(win);
-        });
-      });
-      const header = win.querySelector(".window-header");
-      let dragging = false;
-      let startX = 0;
-      let startY = 0;
-      let startLeft = 0;
-      let startTop = 0;
-      header.addEventListener("mousedown", event => {
-        if (event.target.closest(".ctrl") || window.matchMedia("(max-width: 700px)").matches) return;
-        dragging = true;
-        focusWindow(win);
-        const rect = win.getBoundingClientRect();
-        startX = event.clientX;
-        startY = event.clientY;
-        startLeft = rect.left;
-        startTop = rect.top;
-        document.body.style.userSelect = "none";
-      });
-      window.addEventListener("mousemove", event => {
-        if (!dragging) return;
-        const dx = event.clientX - startX;
-        const dy = event.clientY - startY;
-        const maxLeft = Math.max(16, window.innerWidth - win.offsetWidth - 16);
-        const maxTop = Math.max(64, window.innerHeight - win.offsetHeight - 96);
-        win.style.left = `${Math.min(Math.max(16, startLeft + dx), maxLeft)}px`;
-        win.style.top = `${Math.min(Math.max(64, startTop + dy), maxTop)}px`;
-      });
-      window.addEventListener("mouseup", () => {
-        dragging = false;
-        document.body.style.userSelect = "";
-      });
-    });
-    window.addEventListener("resize", () => windows.forEach(clampWindow));
-    updateClock();
-    setInterval(updateClock, 1000 * 30);
-    focusWindow(document.getElementById("window-about"));
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Deserez Krentz is a Creative Systems Developer building Discord bots, JCink/forum systems, AI-style assistants, coded resumes, and polished community tools." />
-  <meta property="og:title" content="Deserez Krentz | Creative Systems Developer" />
-  <meta property="og:description" content="Portfolio for bot development, JCink/forum systems, AI evaluation, writing, and UX-minded tools." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://deserez.github.io/" />
-  <meta name="theme-color" content="#fff8fb" />
-  <title>Deserez Krentz | Creative Systems Developer</title>
-  <link href="https://file.garden/ZpA9El5gR2LIe6l8/game_icons.css" rel="stylesheet" />
-  <link href="https://file.garden/ZpA9El5gR2LIe6l8/icofont.css" rel="stylesheet" />
-  <style>
-    @font-face {
-      font-family: "Yessy";
-      src: url("./fonts/Yessy Font by Situjuh (7NTypes).otf") format("opentype");
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Protofo";
-      src: url("./fonts/Protofo-Regular.otf") format("opentype");
-      font-weight: 400;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Protofo";
-      src: url("./fonts/Protofo-Bold.otf") format("opentype");
-      font-weight: 700;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Fixedersys";
-      src: url("./fonts/FixederSys1x.ttf") format("truetype");
-      font-display: swap;
-    }
-    :root {
-      --bg-1: #fff8fb;
-      --bg-2: #f4edf2;
-      --ink: #2c2529;
-      --muted: #765f6a;
-      --line: #e7d4dd;
-      --panel: rgba(255, 251, 253, 0.94);
-      --panel-soft: rgba(255, 251, 253, 0.72);
-      --rose: #b7778d;
-      --rose-deep: #8d4f64;
-      --rose-soft: #f7e5ec;
-      --lavender: #d8d0ea;
-      --mint: #d9eadf;
-      --gold: #ead7a2;
-      --shadow: 0 22px 55px rgba(122, 82, 99, 0.18);
-      --ui-font: "Protofo", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --script-font: "Yessy", Georgia, serif;
-      --mono-font: "Fixedersys", "SFMono-Regular", Consolas, monospace;
-      --dock-h: 82px;
-    }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      overflow: hidden;
-      color: var(--ink);
-      font-family: var(--ui-font);
-      background:
-        linear-gradient(rgba(255,255,255,0.18), rgba(255,255,255,0.18)),
-        url("./assets/background-desktop.png") center/cover no-repeat,
-        linear-gradient(135deg, var(--bg-1), var(--bg-2));
-    }
-    body::before {
-      content: "DK";
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      z-index: 0;
-      transform: translate(-50%, -50%) rotate(-4deg);
-      font-family: var(--script-font);
-      font-size: clamp(150px, 28vw, 420px);
-      color: rgba(183, 119, 141, 0.18);
-      pointer-events: none;
-      user-select: none;
-    }
-    button, a { font: inherit; }
-    button:focus-visible, a:focus-visible {
-      outline: 3px solid rgba(141, 79, 100, 0.45);
-      outline-offset: 3px;
-    }
-    .desktop {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      padding: 24px 24px calc(var(--dock-h) + 18px);
-      overflow: hidden;
-    }
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 12px 16px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      background: rgba(255, 251, 253, 0.68);
-      box-shadow: 0 12px 28px rgba(122, 82, 99, 0.1);
-      backdrop-filter: blur(18px);
-    }
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      min-width: 0;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-    .brand-mark {
-      color: var(--rose-deep);
-      font-family: var(--script-font);
-      font-size: 32px;
-      letter-spacing: 0;
-      text-transform: none;
-    }
-    .brand-title {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .clock {
-      flex: none;
-      color: var(--muted);
-      font-size: 13px;
       font-weight: 700;
     }
-    .desktop-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 118px);
-      grid-auto-rows: 126px;
-      gap: 14px 16px;
-      width: max-content;
-      margin-top: 22px;
-      user-select: none;
-    }
-    .icon {
-      display: flex;
-      width: 118px;
-      min-height: 118px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 8px;
-      border: 1px solid transparent;
-      border-radius: 16px;
-      color: inherit;
-      text-align: center;
-      text-decoration: none;
-      background: transparent;
-      cursor: pointer;
-      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
-    }
-    .icon:hover, .icon:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(231, 212, 221, 0.9);
-      background: rgba(255,255,255,0.42);
-      box-shadow: 0 14px 30px rgba(122, 82, 99, 0.12);
-    }
-    .icon-emoji {
-      display: grid;
-      width: 58px;
-      height: 58px;
-      place-items: center;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      color: #6c4d58;
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,229,236,.95));
-      box-shadow: 0 12px 22px rgba(122, 82, 99, 0.1);
-      font-size: 24px;
-    }
-    .icon-label {
-      max-width: 104px;
-      color: #fff;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.1;
-      text-shadow: 0 1px 6px rgba(38, 28, 34, 0.9);
-      overflow-wrap: anywhere;
-    }
-    .profile-widget {
-      position: absolute;
-      right: 24px;
-      bottom: calc(var(--dock-h) + 26px);
-      z-index: 2;
-      width: min(360px, calc(100vw - 48px));
-      padding: 18px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 20px;
-      background: rgba(255, 251, 253, 0.72);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-    .widget-title, .eyebrow {
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-    }
-    .profile-widget p {
-      margin: 0;
-      color: #3f3339;
-      font-size: 14px;
-      line-height: 1.55;
-    }
-    .profile-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-top: 14px;
-    }
-    .stat {
-      min-height: 70px;
-      padding: 10px;
-      border: 1px solid rgba(231, 212, 221, 0.9);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.64);
-    }
-    .stat strong {
-      display: block;
-      color: var(--rose-deep);
-      font-size: 19px;
-      line-height: 1.1;
-    }
-    .stat span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 11px;
-      line-height: 1.2;
-    }
-    .dock {
-      position: absolute;
-      left: 50%;
-      bottom: 16px;
-      z-index: 30;
-      display: flex;
-      max-width: calc(100% - 40px);
-      min-height: var(--dock-h);
-      align-items: center;
-      gap: 10px;
-      padding: 11px 13px;
-      overflow-x: auto;
-      transform: translateX(-50%);
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 22px;
-      background: rgba(255, 251, 253, 0.76);
-      box-shadow: 0 20px 45px rgba(122, 82, 99, 0.15);
-      backdrop-filter: blur(18px);
-    }
-    .dock:empty::before {
-      content: "Open windows appear here";
-      padding: 0 12px;
-      color: var(--muted);
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    .dock-item {
-      display: grid;
-      min-width: 58px;
-      height: 58px;
-      place-items: center;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(247,229,236,.95));
-      color: #6c4d58;
-      cursor: pointer;
-      font-size: 20px;
-      box-shadow: 0 10px 20px rgba(122, 82, 99, 0.08);
-    }
-    .dock-item.active {
-      border-color: rgba(141, 79, 100, 0.42);
-      box-shadow: inset 0 0 0 2px rgba(141, 79, 100, 0.12), 0 10px 20px rgba(122, 82, 99, 0.1);
-    }
-    .window {
-      position: absolute;
-      z-index: 10;
-      width: min(790px, calc(100vw - 130px));
-      min-width: 320px;
-      max-height: calc(100vh - 164px);
-      overflow: hidden;
-      border: 1px solid rgba(231, 212, 221, 0.98);
-      border-radius: 22px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      animation: windowIn 180ms ease;
-    }
-    .window.is-active {
-      border-color: rgba(141, 79, 100, 0.42);
-      box-shadow: 0 26px 70px rgba(122, 82, 99, 0.23);
-    }
-    .window.hidden { display: none; }
-    @keyframes windowIn {
-      from { opacity: 0; transform: scale(.98) translateY(8px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .window-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 13px 16px;
-      border-bottom: 1px solid rgba(231, 212, 221, 0.9);
-      background: rgba(255, 248, 251, 0.93);
-      cursor: move;
-      user-select: none;
-    }
-    .window-title-wrap {
-      display: flex;
-      min-width: 0;
-      align-items: center;
-      gap: 10px;
-    }
-    .window-icon {
-      display: grid;
-      flex: none;
-      width: 34px;
-      height: 34px;
-      place-items: center;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.72);
-      color: #6c4d58;
-      font-size: 18px;
-    }
-    .window-title {
-      overflow: hidden;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-overflow: ellipsis;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-    .window-controls {
-      display: flex;
-      flex: none;
-      gap: 8px;
-    }
-    .ctrl {
-      width: 15px;
-      height: 15px;
-      padding: 0;
-      border: 1px solid rgba(112, 85, 97, 0.22);
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    .ctrl.min { background: #ecd18b; }
-    .ctrl.max { background: #b8ddc0; }
-    .ctrl.close { background: #eaa6ba; }
-    .window-body {
-      max-height: calc(100vh - 238px);
-      overflow: auto;
-      padding: 22px;
-    }
-    .hero-name {
-      margin: 0 0 8px;
-      color: #3d3036;
-      font-size: clamp(28px, 5vw, 48px);
-      line-height: 1.05;
-    }
-    .hero-sub {
-      margin: 0 0 18px;
-      color: var(--rose-deep);
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-    .copy, .project-card p, .resume-card p {
-      margin: 0 0 14px;
-      color: #3f3339;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-    .split {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(210px, .8fr);
-      gap: 16px;
-      align-items: start;
-    }
-    .callout {
-      padding: 16px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.64);
-    }
-    .callout strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--rose-deep);
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 12px;
-    }
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 30px;
-      padding: 7px 11px;
-      border: 1px solid rgba(183, 119, 141, 0.28);
-      border-radius: 999px;
-      background: var(--rose-soft);
-      color: #59464f;
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.15;
-    }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-      gap: 14px;
-    }
-    .project-card, .resume-card {
-      padding: 16px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.70);
-      box-shadow: 0 12px 24px rgba(122, 82, 99, 0.08);
-    }
-    button.project-card {
-      display: block;
-      width: 100%;
-      color: inherit;
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-    }
-    button.project-card:hover {
-      border-color: rgba(141, 79, 100, 0.42);
-      box-shadow: 0 16px 30px rgba(122, 82, 99, 0.14);
-    }
-    .project-card--wide {
-      grid-column: 1 / -1;
-    }
-    .project-card h3 {
-      margin: 0 0 8px;
-      color: #46383e;
-      font-size: 15px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-    }
-    .project-meta {
-      display: grid;
-      gap: 7px;
-      margin: 13px 0 0;
-      color: #51434a;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-    .project-meta b { color: var(--rose-deep); }
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 14px;
-    }
-    .file-link, .text-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 38px;
-      padding: 9px 13px;
-      border: 1px solid rgba(183,119,141,0.35);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.88);
-      color: #523944;
-      font-weight: 800;
-      font-size: 13px;
-      text-decoration: none;
-    }
-    .text-link[aria-disabled="true"] {
-      color: #89717b;
-      background: rgba(247,229,236,0.55);
-      cursor: not-allowed;
-    }
-    .terminal-note {
-      margin-top: 12px;
-      padding: 10px 12px;
-      border: 1px dashed rgba(141, 79, 100, 0.32);
-      border-radius: 12px;
-      background: rgba(251,244,247,0.9);
-      color: #57454d;
-      font-family: var(--mono-font);
-      font-size: 12px;
-      line-height: 1.55;
-      text-transform: uppercase;
-    }
-    .rate-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
-      gap: 14px;
-    }
-    .rate-card {
-      padding: 16px;
-      border: 1px solid rgba(231, 212, 221, 0.95);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.70);
-      box-shadow: 0 12px 24px rgba(122, 82, 99, 0.08);
-    }
-    .rate-card h3 {
-      margin: 0 0 10px;
-      color: #46383e;
-      font-size: 14px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .rate-list {
-      display: grid;
-      gap: 8px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .rate-list li {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 9px 10px;
-      border: 1px solid rgba(231, 212, 221, 0.82);
-      border-radius: 12px;
-      background: rgba(255,255,255,0.56);
-      color: #4b3d44;
-      font-size: 13px;
-      line-height: 1.35;
-    }
-    .rate-list b {
-      color: var(--rose-deep);
-      text-align: right;
-      white-space: nowrap;
-    }
-    .code-viewer-pre {
-      max-height: 420px;
-      overflow: auto;
-      margin: 12px 0 0;
-      padding: 14px;
-      border: 1px solid rgba(183, 119, 141, 0.26);
-      border-radius: 14px;
-      background: #22191e;
-      color: #fff7fb;
-      font: 12px/1.65 Consolas, "SFMono-Regular", monospace;
-      white-space: pre-wrap;
-    }
+
     .contact-list {
       display: grid;
       gap: 12px;
@@ -2372,6 +737,7 @@ document.addEventListener("DOMContentLoaded", () => {
       line-height: 1.5;
     }
     .contact-item a { color: var(--rose-deep); font-weight: 800; text-decoration: none; }
+
     @media (max-width: 980px) {
       .profile-widget { display: none; }
       .window { width: calc(100vw - 42px); }
@@ -2422,6 +788,16 @@ document.addEventListener("DOMContentLoaded", () => {
       .window.hidden { display: none; }
       .window-header { cursor: default; }
       .window-body { max-height: none; padding: 18px; }
+      .resume-head,
+      .resume-grid {
+        grid-template-columns: 1fr;
+      }
+      .resume-contact {
+        text-align: left;
+      }
+      .code-preview-frame {
+        height: 520px;
+      }
       .dock {
         position: fixed;
         bottom: 10px;
@@ -2442,6 +818,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="clock" id="clock" aria-label="Current time">--:--</div>
     </header>
+
     <nav class="desktop-grid" aria-label="Portfolio sections">
       <button class="icon" type="button" data-window="about" aria-label="Open about section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-notepad"></i></span>
@@ -2451,6 +828,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-folder"></i></span>
         <span class="icon-label">Projects</span>
       </button>
+      <button class="icon" type="button" data-window="bots" aria-label="Open bots section">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-robot-face"></i></span>
+        <span class="icon-label">Bots</span>
+      </button>
       <button class="icon" type="button" data-window="code-lab" aria-label="Open code lab section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-code"></i></span>
         <span class="icon-label">Code Lab</span>
@@ -2459,9 +840,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-price"></i></span>
         <span class="icon-label">Rates</span>
       </button>
-      <button class="icon" type="button" data-window="resume" aria-label="Open resume section">
-        <span class="icon-emoji" aria-hidden="true"><i class="icofont-file-pdf"></i></span>
-        <span class="icon-label">Resume.pdf</span>
+      <button class="icon" type="button" data-window="resume" aria-label="Open coded resume section">
+        <span class="icon-emoji" aria-hidden="true"><i class="icofont-file-document"></i></span>
+        <span class="icon-label">Resume.html</span>
       </button>
       <button class="icon" type="button" data-window="contact" aria-label="Open contact section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-envelope-open"></i></span>
@@ -2472,6 +853,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="icon-label">GitHub</span>
       </a>
     </nav>
+
     <aside class="profile-widget" aria-label="Quick profile">
       <p class="widget-title">Quick Profile</p>
       <p>Self-taught developer and writer building useful systems for communities: bots, web layouts, AI-style assistants, documentation, and UX-minded tools.</p>
@@ -2481,7 +863,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="stat"><strong>1</strong><span>public resume, privacy-safe</span></div>
       </div>
     </aside>
+
     <div class="dock" id="dock" aria-label="Open windows"></div>
+
     <section class="window" id="window-about" style="left: 178px; top: 126px;" aria-labelledby="title-about">
       <div class="window-header">
         <div class="window-title-wrap">
@@ -2514,14 +898,13 @@ document.addEventListener("DOMContentLoaded", () => {
               <span class="pill">Technical Writing</span>
             </div>
           </div>
-          <aside class="callout">
-            <strong>What I Bring</strong>
-            <p class="copy">A practical mix of code, documentation, customer-facing problem solving, and creative systems design.</p>
-            <p class="copy">I am especially strong at turning messy rules, workflows, or community needs into tools people can actually use.</p>
+          <aside class="about-photo">
+            <img src="./assets/about-portrait.jpg" alt="Portrait of Deserez Krentz" onerror="this.parentElement.classList.add('is-missing'); this.remove();">
           </aside>
         </div>
       </div>
     </section>
+
     <section class="window hidden" id="window-projects" style="left: 252px; top: 104px;" aria-labelledby="title-projects">
       <div class="window-header">
         <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-folder"></i></div><div class="window-title" id="title-projects">Projects</div></div>
@@ -2579,6 +962,45 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     </section>
+
+    <section class="window hidden" id="window-bots" style="left: 218px; top: 162px;" aria-labelledby="title-bots">
+      <div class="window-header">
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-robot-face"></i></div><div class="window-title" id="title-bots">Bots</div></div>
+        <div class="window-controls">
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Bots"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Bots"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Bots"></button>
+        </div>
+      </div>
+      <div class="window-body">
+        <p class="eyebrow">Discord Bot Development</p>
+        <div class="project-grid">
+          <article class="project-card project-card--wide">
+            <h3>Darktree Studios: Asheron</h3>
+            <p>Asheron is a community Discord bot for Darktree Studios, focused on making staff and player workflows easier to manage inside Discord.</p>
+            <ul class="feature-list">
+              <li><b>Community Utility:</b> helper commands, structured responses, and quick-access information for recurring server needs.</li>
+              <li><b>Roleplay Support:</b> tools for character/community workflows, request handling, and organized user interaction.</li>
+              <li><b>Staff Workflow Support:</b> automation patterns for repetitive tasks, moderation-adjacent support, and cleaner internal coordination.</li>
+              <li><b>Scalable Direction:</b> built to grow into persistent data, richer command modules, server-specific quality-of-life features, dashboards, and future integrations.</li>
+            </ul>
+            <div class="pill-row"><span class="pill">Discord.js</span><span class="pill">Bot UX</span><span class="pill">Automation</span><span class="pill">Community Systems</span></div>
+            <div class="terminal-note">private community bot // exact command list can be expanded when source files are added</div>
+          </article>
+          <article class="project-card">
+            <h3>Fisto Unit</h3>
+            <p>Designed as an immersive Fallout-inspired game bot with command-based interaction, persistent player data, economy loops, loot, raids, and progression.</p>
+            <div class="terminal-note">developer note: built for replayability, flavor, and clear user feedback</div>
+          </article>
+          <article class="project-card">
+            <h3>Hashirama</h3>
+            <p>Planned as a structured assistant that turns a large roleplay handbook into helpful, conversational guidance for players and staff.</p>
+            <div class="terminal-note">developer note: rules clarity + lore support + low-friction help</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="window hidden" id="window-code-lab" style="left: 286px; top: 118px;" aria-labelledby="title-code-lab">
       <div class="window-header">
         <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-code"></i></div><div class="window-title" id="title-code-lab">Code Lab</div></div>
@@ -2599,6 +1021,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><b>Features:</b> calculated totals, categorized logs, hidden data sets, reusable entry templates</span>
             </div>
           </button>
+
           <button class="project-card" type="button" data-code-sample="nations">
             <h3>Five Great Nations Forum Rows</h3>
             <p>Expandable forum-row layout pattern with nation colors, recent-post metadata, image overlays, hover expansion, and mobile fallback.</p>
@@ -2607,6 +1030,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><b>Focus:</b> atmosphere, scanability, forum navigation, graceful mobile behavior</span>
             </div>
           </button>
+
           <button class="project-card" type="button" data-code-sample="profile">
             <h3>Cyberpunk Mini Profile</h3>
             <p>Profile card with threat-state themes, hover stat reveal, scanline effects, tooltips, awards, and responsive fallback.</p>
@@ -2615,6 +1039,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><b>Focus:</b> visual systems, game-like information hierarchy, microinteractions</span>
             </div>
           </button>
+
           <button class="project-card" type="button" data-code-sample="tutorial">
             <h3>Coding 101 Tutorial</h3>
             <p>Teaching layout with table of contents, live examples, copyable code blocks, troubleshooting, and beginner-safe doHTML examples.</p>
@@ -2623,6 +1048,7 @@ document.addEventListener("DOMContentLoaded", () => {
               <span><b>Focus:</b> making code approachable while teaching maintainable habits</span>
             </div>
           </button>
+
           <button class="project-card project-card--wide" type="button" data-code-sample="statpages">
             <h3>Nindo Character Stat Pages</h3>
             <p>Large character dossiers for Suiren and Sumire with tab navigation, animated hero canvases, inventory tables, jutsu counters, relationship plotters, seal/body registries, prominence and ryō calculators, templates, and sorted material/thread lists.</p>
@@ -2634,22 +1060,24 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     </section>
-    <section class="window hidden" id="window-code-viewer" style="left: 286px; top: 118px; width: min(880px, calc(100vw - 100px));" aria-labelledby="title-code-viewer">
+
+    <section class="window hidden" id="window-code-viewer" style="left: 286px; top: 118px; width: min(940px, calc(100vw - 100px));" aria-labelledby="title-code-viewer">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-code"></i></div><div class="window-title" id="title-code-viewer">Full Code</div></div>
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-eye"></i></div><div class="window-title" id="title-code-viewer">Rendered Preview</div></div>
         <div class="window-controls">
-          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Full Code"></button>
-          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Full Code"></button>
-          <button class="ctrl close" type="button" data-action="close" aria-label="Close Full Code"></button>
+          <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Rendered Preview"></button>
+          <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Rendered Preview"></button>
+          <button class="ctrl close" type="button" data-action="close" aria-label="Close Rendered Preview"></button>
         </div>
       </div>
       <div class="window-body">
-        <p class="eyebrow" id="code-viewer-kicker">Code Sample</p>
+        <p class="eyebrow" id="code-viewer-kicker">Code Lab / Rendered Preview</p>
         <h2 class="hero-name" id="code-viewer-title">Selected Code</h2>
-        <p class="copy" id="code-viewer-desc">Choose a Code Lab preview to view the implementation notes and source structure.</p>
-        <pre class="code-viewer-pre" id="code-viewer-pre"></pre>
+        <p class="copy" id="code-viewer-desc">Choose a Code Lab card to view the finished rendered example.</p>
+        <iframe class="code-preview-frame" id="code-preview-frame" title="Rendered code preview"></iframe>
       </div>
     </section>
+
     <section class="window hidden" id="window-services" style="left: 260px; top: 84px; width: min(980px, calc(100vw - 100px));" aria-labelledby="title-services">
       <div class="window-header">
         <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-price"></i></div><div class="window-title" id="title-services">Services / Rates</div></div>
@@ -2731,9 +1159,10 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
     </section>
-    <section class="window hidden" id="window-resume" style="left: 154px; top: 86px; width: min(780px, calc(100vw - 120px));" aria-labelledby="title-resume">
+
+    <section class="window hidden" id="window-resume" style="left: 130px; top: 76px; width: min(900px, calc(100vw - 110px));" aria-labelledby="title-resume">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-pdf"></i></div><div class="window-title" id="title-resume">Resume.pdf</div></div>
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-document"></i></div><div class="window-title" id="title-resume">Resume.html</div></div>
         <div class="window-controls">
           <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Resume"></button>
           <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Resume"></button>
@@ -2741,18 +1170,110 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
       <div class="window-body">
-        <div class="resume-card">
-          <p class="eyebrow">Public Resume</p>
-          <h2 class="hero-name" style="font-size:28px;">Deserez Krentz</h2>
-          <p class="hero-sub">Creative Systems Developer</p>
-          <p>Privacy-safe PDF resume with email and GitHub only. It highlights long-term coding experience, bot and web projects, AI evaluation, technical writing, documentation-heavy work, database work, and community platform tooling.</p>
-          <div class="link-row">
-            <a class="file-link" href="./resume.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a>
-            <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
-          </div>
+        <div class="resume-actions">
+          <button class="file-link" type="button" id="print-resume">Print / Save PDF</button>
+          <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
         </div>
+        <article class="resume-sheet" aria-label="Deserez Krentz coded resume">
+          <header class="resume-head">
+            <div>
+              <h2 class="resume-name">Deserez Krentz</h2>
+              <p class="resume-role">Bot Developer / Front-End Systems Builder / Technical Writer</p>
+            </div>
+            <div class="resume-contact">
+              <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a>
+              <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a>
+              <span>deserez.github.io</span>
+            </div>
+          </header>
+
+          <section class="resume-section">
+            <h3>Profile</h3>
+            <p>Self-taught developer, writer, and digital systems builder with about twenty years of coding and writing experience. Builds custom Discord bots, JCink/front-end systems, forum mini-apps, database-backed tools, deployment troubleshooting workflows, documentation, technical writing, UX polish, and creative systems planning.</p>
+          </section>
+
+          <section class="resume-section">
+            <h3>Featured Projects</h3>
+            <div class="resume-grid">
+              <div class="resume-item">
+                <h4>Fisto Unit</h4>
+                <p class="resume-meta">Node.js / Discord.js / SQLite</p>
+                <p>Fallout-inspired Discord RPG bot with inventory systems, caps economy, perks, shops, raids, and player progression.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Darktree Studios: Asheron</h4>
+                <p class="resume-meta">Discord community bot / automation / workflow design</p>
+                <p>Community Discord bot focused on server utility, roleplay support, staff workflows, command UX, and scalable automation patterns.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Hashirama</h4>
+                <p class="resume-meta">AI-style assistant / Discord workflows</p>
+                <p>Assistant concept for the Naruto Nindo roleplay community, focused on rules guidance, handbook navigation, lore support, and structured conversational help.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Nindo Web / Forum Design</h4>
+                <p class="resume-meta">HTML / CSS / JavaScript / JCink doHTML</p>
+                <p>Custom JCink systems including character stat dashboards, village ledgers, forum-row mockups, mini profiles, tutorials, templates, and calculated resource trackers.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>Experience</h3>
+            <div class="resume-item">
+              <h4>Broker / Customer Service Representative</h4>
+              <p class="resume-meta">Cole International</p>
+              <ul class="resume-list">
+                <li>Managed documentation-heavy workflows and internal database records with attention to accuracy, compliance, and traceability.</li>
+                <li>Reviewed client and shipment information, resolved discrepancies, and communicated clearly across customer and internal channels.</li>
+                <li>Built long-term client trust through organized follow-up, practical problem solving, and calm handling of time-sensitive issues.</li>
+                <li>Applied analytical thinking in a high-detail environment where written clarity, accuracy, and process discipline mattered daily.</li>
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Manager</h4>
+              <p class="resume-meta">New Orleans Pizza</p>
+              <ul class="resume-list">
+                <li>Oversaw daily operations, scheduling, inventory, reporting, cash procedures, and team coordination.</li>
+                <li>Trained new staff and maintained reliable service standards in a fast-moving customer-facing environment.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>Skills</h3>
+            <ul class="resume-skill-cloud" aria-label="Resume skills">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Node.js</li>
+              <li>Discord.js</li>
+              <li>SQLite</li>
+              <li>GitHub</li>
+              <li>Debugging</li>
+              <li>Deployment Troubleshooting</li>
+              <li>Prompt Engineering</li>
+              <li>AI Evaluation</li>
+              <li>Technical Writing</li>
+              <li>Documentation</li>
+              <li>Community UX</li>
+              <li>Creative Systems</li>
+              <li>JCink / doHTML</li>
+              <li>Data Dashboards</li>
+            </ul>
+          </section>
+
+          <section class="resume-section">
+            <h3>Education</h3>
+            <div class="resume-item">
+              <h4>High School Diploma</h4>
+              <p class="resume-meta">Simcoe Composite High School</p>
+            </div>
+          </section>
+        </article>
       </div>
     </section>
+
     <section class="window hidden" id="window-contact" style="left: 338px; top: 146px; width: min(540px, calc(100vw - 100px));" aria-labelledby="title-contact">
       <div class="window-header">
         <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-envelope-open"></i></div><div class="window-title" id="title-contact">Contact</div></div>
@@ -2771,15 +1292,18 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     </section>
   </main>
+
   <script>
     const windows = [...document.querySelectorAll(".window")];
     const dock = document.getElementById("dock");
     let topZ = 50;
     let activeWindowId = "";
+
     function updateClock() {
       const now = new Date();
       document.getElementById("clock").textContent = now.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
     }
+
     function focusWindow(win) {
       topZ += 1;
       activeWindowId = win.id;
@@ -2787,12 +1311,14 @@ document.addEventListener("DOMContentLoaded", () => {
       win.style.zIndex = topZ;
       syncDock();
     }
+
     function openWindow(name) {
       const win = document.getElementById(`window-${name}`);
       if (!win) return;
       win.classList.remove("hidden");
       focusWindow(win);
     }
+
     function closeWindow(win) {
       win.classList.add("hidden");
       win.classList.remove("is-active");
@@ -2807,6 +1333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         syncDock();
       }
     }
+
     function syncDock() {
       dock.innerHTML = "";
       windows.filter(win => !win.classList.contains("hidden")).forEach(win => {
@@ -2822,6 +1349,7 @@ document.addEventListener("DOMContentLoaded", () => {
         dock.appendChild(item);
       });
     }
+
     function clampWindow(win) {
       if (window.matchMedia("(max-width: 700px)").matches) return;
       const rect = win.getBoundingClientRect();
@@ -2830,9 +1358,11 @@ document.addEventListener("DOMContentLoaded", () => {
       win.style.left = `${Math.min(Math.max(16, rect.left), maxLeft)}px`;
       win.style.top = `${Math.min(Math.max(64, rect.top), maxTop)}px`;
     }
+
     document.querySelectorAll(".icon[data-window]").forEach(icon => {
       icon.addEventListener("click", () => openWindow(icon.dataset.window));
     });
+
     const codeSamples = {
       ledger: {
         title: "Iwagakure Treasury Register",
@@ -2842,15 +1372,18 @@ document.addEventListener("DOMContentLoaded", () => {
     <input type="radio" name="iwaLedgerTab" id="iwaTabTreasury" checked>
     <input type="radio" name="iwaLedgerTab" id="iwaTabMines">
     <input type="radio" name="iwaLedgerTab" id="iwaTabCorps">
+
     <div class="iwaLedgerTabs">
       <label for="iwaTabTreasury">Treasury</label>
       <label for="iwaTabMines">Hannya Mines</label>
       <label for="iwaTabCorps">Explosion Corps</label>
     </div>
+
     <section class="iwaPaneTreasury">
       <div id="iwaRyoDisplay">0</div>
       <div id="iwaRyoLog"></div>
     </section>
+
     <div class="iwaDataSet" data-set="treasury">
       <div class="iwaEntry" data-type="claim" data-amount="131250">
         <div class="iwaEntryLabel">Weekly village income</div>
@@ -2863,6 +1396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </div>
+
 function renderTreasury(root) {
   let claims = 0;
   let purchases = 0;
@@ -2893,6 +1427,7 @@ function renderTreasury(root) {
     </a>
   </div>
 </div>
+
 .greatNationsGrid {
   display: flex;
   gap: 24px;
@@ -2921,6 +1456,7 @@ function renderTreasury(root) {
     <span class="csv2-chip">night city archive</span>
     <span class="csv2-chip alert">threat // low</span>
   </div>
+
   <div class="csv2-portrait">
     <div class="csv2-portrait__name" data-text="diangel">diangel</div>
     <div class="csv2-portrait__hover">
@@ -2932,6 +1468,7 @@ function renderTreasury(root) {
     </div>
   </div>
 </div>
+
 .cyberStatV2 {
   --cyan:#53f4ff;
   --pink:#ff5fc8;
@@ -2958,11 +1495,13 @@ function renderTreasury(root) {
     <div class="c101__tag">jcink • dohtml • beginner guide</div>
     <div class="c101__title">welcome to <span>coding 101</span></div>
   </div>
+
   <div class="c101Index__list">
     <a href="#c101-naming">naming your code</a>
     <a href="#c101-anatomy">anatomy of a post template</a>
     <a href="#c101-troubleshoot">troubleshooting checklist</a>
   </div>
+
   <div class="c101CopyWrap">
     <button onclick="this.nextElementSibling.select()">select all</button>
     <textarea readonly>[*dohtml]
@@ -2970,6 +1509,7 @@ function renderTreasury(root) {
 [/*dohtml]</textarea>
   </div>
 </div>
+
 .c101 {
   width: 650px;
   margin: 18px auto;
@@ -2994,20 +1534,24 @@ function renderTreasury(root) {
       <div class="kumoStat__subtitle">Violet Flame of Kumogakure</div>
     </div>
   </div>
+
   <div class="kumoTabs__nav">
     <button data-tab="kumo-basics" class="kumoTabButton is-active">Basics</button>
     <button data-tab="kumo-jutsu" class="kumoTabButton">Jutsu</button>
     <button data-tab="kumo-promryo" class="kumoTabButton">Prom / Ryō</button>
   </div>
+
   <section id="kumo-jutsu" class="kumoPanel">
     <span class="js-current-rank">B-Rank</span>
     <span class="js-b-rank-display">0 / Unlimited</span>
   </section>
 </div>
+
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.querySelector(".kumoStat");
   const buttons = root.querySelectorAll(".kumoTabButton");
   const panels = root.querySelectorAll(".kumoPanel");
+
   buttons.forEach(button => {
     button.addEventListener("click", () => {
       buttons.forEach(btn => btn.classList.remove("is-active"));
@@ -3019,17 +1563,46 @@ document.addEventListener("DOMContentLoaded", () => {
 });`
       }
     };
+
+    const renderedPreviews = {
+      ledger: `<!doctype html><html><head><style>
+        *{box-sizing:border-box} body{margin:0;padding:28px;background:#191613;color:#f8f2ee;font:14px/1.6 Georgia,serif}
+        .ledger{max-width:760px;margin:0 auto;border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:22px;background:radial-gradient(circle at top left,rgba(224,182,197,.18),transparent 35%),linear-gradient(180deg,#211b17,#120f0d);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+        .tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}.tabs span{padding:8px 12px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.06);font:10px/1 sans-serif;text-transform:uppercase;letter-spacing:1.5px}
+        .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}.panel{border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:16px;background:rgba(255,255,255,.04)}
+        h1{margin:0 0 6px;font-size:34px;font-weight:400}.total{font:700 36px/1 sans-serif;color:#e9d2a8}.row{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px dashed rgba(255,255,255,.14)}.row:first-child{border-top:0}.row b{color:#b8f3df}
+      </style></head><body><main class="ledger"><div class="tabs"><span>Treasury</span><span>Hannya Mines</span><span>Explosion Corps</span><span>Raid Intel</span><span>Templates</span></div><div class="grid"><section class="panel"><h1>Iwagakure Treasury</h1><p>Calculated village resources, production logs, purchase records, and hidden data sets rendered into readable staff tools.</p><div class="total">6,606,250 ryo</div></section><section class="panel"><div class="row"><span>Weekly income</span><b>+131,250</b></div><div class="row"><span>Hannya Mine</span><b>-525,000</b></div><div class="row"><span>Production</span><b>5 / week</b></div><div class="row"><span>Intel status</span><b>Active</b></div></section></div></main></body></html>`,
+      nations: `<!doctype html><html><head><style>
+        *{box-sizing:border-box} body{margin:0;padding:28px;background:#171717;color:#f9f9f9;font:14px/1.4 Arial,sans-serif}.wrap{max-width:840px;margin:auto}.head{height:92px;display:grid;place-items:center;border:1px solid #2e2e2e;background:linear-gradient(rgba(23,23,23,.38),rgba(23,23,23,.72)),url('https://files.jcink.net/uploads2/miel/img/banner.jpg') center/cover;color:#fff;text-transform:uppercase;letter-spacing:.18em;font-weight:900}.grid{display:flex;gap:16px;height:340px;margin-top:22px}.row{flex:1;min-width:70px;transition:flex .45s ease}.grid:hover .row{flex:.55}.grid .row:hover{flex:4}.tile{position:relative;height:100%;overflow:hidden;border:1px solid #333;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(0,0,0,.5)),var(--c)}.name{position:absolute;right:12px;bottom:14px;writing-mode:vertical-rl;transform:rotate(180deg);font-size:28px;text-transform:uppercase;font-weight:900}.recent{position:absolute;left:14px;top:14px;width:260px;padding:14px;border:4px solid #2e2e2e;background:rgba(23,23,23,.74);opacity:0;transform:translateY(10px);transition:.3s}.row:hover .recent{opacity:1;transform:none}.recent b{color:var(--c)}
+      </style></head><body><main class="wrap"><div class="head">The Five Great Nations</div><section class="grid"><div class="row"><div class="tile" style="--c:#dbab39"><div class="name">fire</div><div class="recent"><b>embers over the valley</b><br>username here</div></div></div><div class="row"><div class="tile" style="--c:#94b447"><div class="name">earth</div><div class="recent"><b>stone remembers</b><br>username here</div></div></div><div class="row"><div class="tile" style="--c:#00ac9f"><div class="name">water</div><div class="recent"><b>mist keeps its dead</b><br>username here</div></div></div><div class="row"><div class="tile" style="--c:#42b472"><div class="name">wind</div><div class="recent"><b>no promises</b><br>username here</div></div></div><div class="row"><div class="tile" style="--c:#5166d6"><div class="name">lightning</div><div class="recent"><b>thunder answers</b><br>username here</div></div></div></section></main></body></html>`,
+      profile: `<!doctype html><html><head><style>
+        *{box-sizing:border-box} body{margin:0;padding:28px;background:#05070d;color:#eef6ff;font:12px/1.5 monospace}.card{width:360px;max-width:100%;margin:auto;border:1px solid rgba(255,255,255,.12);background:linear-gradient(135deg,#060910,#0d1320);box-shadow:0 0 38px rgba(83,244,255,.12);padding:18px}.chips{display:flex;justify-content:space-between;gap:8px}.chip{border:1px solid rgba(255,255,255,.14);padding:8px 10px;text-transform:uppercase;letter-spacing:.18em;color:#7dffcb}.portrait{position:relative;height:520px;margin-top:14px;overflow:hidden;border:1px solid rgba(255,255,255,.16);clip-path:polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px);background:radial-gradient(circle at 30% 20%,rgba(83,244,255,.22),transparent 32%),radial-gradient(circle at 70% 80%,rgba(255,95,200,.18),transparent 36%),#101827}.name{position:absolute;left:20px;top:210px;font-size:54px;text-transform:uppercase;letter-spacing:.2em;color:#fff;transform:rotate(-12deg);text-shadow:0 0 12px #53f4ff,0 0 18px #ff5fc8}.scan{position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(255,255,255,.05) 0 1px,transparent 1px 4px)}.stats{position:absolute;inset:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:center;opacity:0;transition:.3s;background:rgba(6,9,16,.55);backdrop-filter:blur(8px)}.portrait:hover .stats{opacity:1}.stats div{border:1px solid rgba(255,255,255,.14);padding:10px;background:rgba(0,0,0,.45)}.stats b{display:block;color:#7dffcb;text-transform:uppercase}
+      </style></head><body><main class="card"><div class="chips"><span class="chip">night city archive</span><span class="chip">threat // low</span></div><section class="portrait"><div class="scan"></div><div class="name">diangel</div><div class="stats"><div><b>body</b>08</div><div><b>reflex</b>17</div><div><b>intel</b>20</div><div><b>cool</b>18</div><div><b>ram</b>34</div><div><b>armor</b>312</div></div></section></main></body></html>`,
+      tutorial: `<!doctype html><html><head><style>
+        *{box-sizing:border-box} body{margin:0;padding:28px;background:#100c0c;color:#f8efef;font:13px/1.7 Arial,sans-serif}.c101{max-width:680px;margin:auto;border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;background:radial-gradient(circle at top right,rgba(243,182,201,.18),transparent 30%),linear-gradient(180deg,#1a1313,#120d0d);box-shadow:0 18px 45px rgba(0,0,0,.42)}.head{padding:18px;border-bottom:1px solid rgba(255,255,255,.08);background:rgba(243,182,201,.08)}.tag{font-size:10px;text-transform:uppercase;letter-spacing:.18em;color:rgba(248,239,239,.58)}h1{margin:6px 0 0;text-transform:uppercase;font-size:28px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px}.item,.copy{border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:12px;background:rgba(255,255,255,.03)}.item b,.copy b{color:#f3b6c9;text-transform:uppercase}.copy textarea{width:100%;height:130px;margin-top:8px;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:#090707;color:#fff;font:11px/1.6 monospace}
+      </style></head><body><main class="c101"><header class="head"><div class="tag">jcink / dohtml / beginner guide</div><h1>welcome to <span style="color:#f3b6c9">coding 101</span></h1></header><section class="grid"><div class="item"><b>01 naming</b><br>prefix classes, avoid generic selectors, keep future-you sane.</div><div class="item"><b>02 structure</b><br>wrapper, top section, body, styling, and reusable blocks.</div><div class="item"><b>03 positioning</b><br>margin, padding, relative anchors, absolute details.</div><div class="copy"><b>copy block</b><textarea readonly><div id="c101-postWrap">your writing goes here</div></textarea></div></section></main></body></html>`,
+      statpages: `<!doctype html><html><head><style>
+        *{box-sizing:border-box} body{margin:0;padding:28px;background:#111;color:#faf6f2;font:14px/1.65 Georgia,serif}.stat{max-width:860px;margin:auto;border:1px solid rgba(255,255,255,.12);border-radius:28px;overflow:hidden;background:radial-gradient(900px 300px at 8% -10%,rgba(224,182,197,.18),transparent 60%),linear-gradient(180deg,#191613,#100e0d);box-shadow:0 26px 70px rgba(0,0,0,.55)}.hero{display:grid;grid-template-columns:170px 1fr;gap:18px;padding:22px;border-bottom:1px solid rgba(255,255,255,.08)}.portrait{border-radius:18px;background:linear-gradient(135deg,#e8c6d1,#92bead);min-height:210px}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font:11px sans-serif;color:rgba(250,246,242,.68)}h1{margin:8px 0 4px;font-size:42px;font-weight:400;text-transform:uppercase}.quick{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:16px}.quick div,.panel{border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:10px;background:rgba(255,255,255,.04)}.quick b{display:block;font:700 18px sans-serif}.tabs{display:flex;flex-wrap:wrap;gap:10px;padding:14px 22px;border-bottom:1px solid rgba(255,255,255,.08)}.tabs span{font:10px sans-serif;text-transform:uppercase;letter-spacing:.13em;color:#f0d39d}.body{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:22px}.panel h3{margin:0 0 8px;text-transform:uppercase;letter-spacing:.12em;color:#f0d39d}
+      </style></head><body><main class="stat"><section class="hero"><div class="portrait"></div><div><div class="eyebrow">Kumogakure Shinobi Dossier</div><h1>Sumire Ikebana</h1><p>Large character dashboard with tab navigation, animated hero canvas space, counters, ledgers, plotters, templates, and sorted resource lists.</p><div class="quick"><div><b>198</b>Stamina</div><div><b>200</b>Control</div><div><b>1980</b>SP</div><div><b>B</b>Rank</div><div><b>68k</b>WC</div></div></div></section><nav class="tabs"><span>Basics</span><span>Items</span><span>Jutsu</span><span>Prom / Ryo</span><span>Templates</span></nav><section class="body"><div class="panel"><h3>Current Rank Progression</h3>B-Rank jutsu: 7 / Unlimited<br>C-Rank jutsu: 5 / Unlimited<br>Mastery slots: 0 / 30</div><div class="panel"><h3>Thread / Plotter Tools</h3>Relationship cards, wanted plots, thread states, material grades, and copy-paste templates.</div></section></main></body></html>`
+    };
+
     document.querySelectorAll("[data-code-sample]").forEach(button => {
       button.addEventListener("click", () => {
         const sample = codeSamples[button.dataset.codeSample];
         if (!sample) return;
-        document.getElementById("code-viewer-kicker").textContent = "Code Lab / Source Preview";
+        document.getElementById("code-viewer-kicker").textContent = "Code Lab / Rendered Preview";
         document.getElementById("code-viewer-title").textContent = sample.title;
         document.getElementById("code-viewer-desc").textContent = sample.desc;
-        document.getElementById("code-viewer-pre").textContent = sample.code;
+        document.getElementById("code-preview-frame").srcdoc = renderedPreviews[button.dataset.codeSample] || "";
         openWindow("code-viewer");
       });
     });
+
+    document.getElementById("print-resume")?.addEventListener("click", () => {
+      openWindow("resume");
+      window.print();
+    });
+
     windows.forEach(win => {
       win.addEventListener("mousedown", () => focusWindow(win));
       win.querySelectorAll(".ctrl").forEach(btn => {
@@ -3040,12 +1613,14 @@ document.addEventListener("DOMContentLoaded", () => {
           if (action === "focus") focusWindow(win);
         });
       });
+
       const header = win.querySelector(".window-header");
       let dragging = false;
       let startX = 0;
       let startY = 0;
       let startLeft = 0;
       let startTop = 0;
+
       header.addEventListener("mousedown", event => {
         if (event.target.closest(".ctrl") || window.matchMedia("(max-width: 700px)").matches) return;
         dragging = true;
@@ -3057,6 +1632,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startTop = rect.top;
         document.body.style.userSelect = "none";
       });
+
       window.addEventListener("mousemove", event => {
         if (!dragging) return;
         const dx = event.clientX - startX;
@@ -3066,11 +1642,13 @@ document.addEventListener("DOMContentLoaded", () => {
         win.style.left = `${Math.min(Math.max(16, startLeft + dx), maxLeft)}px`;
         win.style.top = `${Math.min(Math.max(64, startTop + dy), maxTop)}px`;
       });
+
       window.addEventListener("mouseup", () => {
         dragging = false;
         document.body.style.userSelect = "";
       });
     });
+
     window.addEventListener("resize", () => windows.forEach(clampWindow));
     updateClock();
     setInterval(updateClock, 1000 * 30);
