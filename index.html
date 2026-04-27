@@ -389,7 +389,7 @@
       font-weight: 700;
       line-height: 1.35;
     }
-    .copy, .project-card p, .resume-card p {
+    .copy, .project-card p, .resume-card p, .resume-sheet p {
       margin: 0 0 14px;
       color: #3f3339;
       font-size: 14px;
@@ -513,6 +513,157 @@
       line-height: 1.5;
     }
     .contact-item a { color: var(--rose-deep); font-weight: 800; text-decoration: none; }
+    .resume-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 0 0 16px;
+    }
+    .resume-sheet {
+      border: 1px solid rgba(231, 212, 221, 0.95);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.82);
+      box-shadow: 0 12px 24px rgba(122, 82, 99, 0.08);
+      padding: 22px;
+    }
+    .resume-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: start;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(231, 212, 221, 0.95);
+      margin-bottom: 18px;
+    }
+    .resume-name {
+      margin: 0 0 6px;
+      color: #34282e;
+      font-size: 32px;
+      line-height: 1.05;
+    }
+    .resume-role {
+      margin: 0;
+      color: var(--rose-deep);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .resume-contact {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+      text-align: right;
+    }
+    .resume-contact a {
+      color: var(--rose-deep);
+      font-weight: 800;
+      text-decoration: none;
+    }
+    .resume-section {
+      margin-top: 18px;
+    }
+    .resume-section h3 {
+      margin: 0 0 10px;
+      color: var(--rose-deep);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .resume-item {
+      padding: 13px 0;
+      border-top: 1px solid rgba(231, 212, 221, 0.78);
+    }
+    .resume-item:first-of-type { border-top: 0; padding-top: 0; }
+    .resume-item h4 {
+      margin: 0 0 4px;
+      color: #3d3036;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+    .resume-meta {
+      margin: 0 0 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .resume-list {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding-left: 18px;
+      color: #3f3339;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .resume-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .resume-skill-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .resume-skill-cloud li {
+      padding: 7px 10px;
+      border: 1px solid rgba(183, 119, 141, 0.28);
+      border-radius: 999px;
+      background: var(--rose-soft);
+      color: #59464f;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    @media print {
+      body {
+        overflow: visible;
+        background: #fff;
+      }
+      body::before, .topbar, .desktop-grid, .profile-widget, .dock, .window-header, .resume-actions {
+        display: none !important;
+      }
+      .desktop {
+        height: auto;
+        padding: 0;
+        overflow: visible;
+      }
+      .window {
+        position: static !important;
+        display: none !important;
+        width: auto !important;
+        max-height: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: #fff;
+      }
+      #window-resume {
+        display: block !important;
+      }
+      .window-body {
+        max-height: none;
+        overflow: visible;
+        padding: 0;
+      }
+      .resume-sheet {
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
+      }
+      .resume-name { font-size: 28px; }
+      .resume-section { break-inside: avoid; }
+    }
 
     @media (max-width: 980px) {
       .profile-widget { display: none; }
@@ -602,9 +753,9 @@
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-moon"></i></span>
         <span class="icon-label">Apps</span>
       </button>
-      <button class="icon" type="button" data-window="resume" aria-label="Open resume section">
+      <button class="icon" type="button" data-window="resume" aria-label="Open coded resume section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-file-pdf"></i></span>
-        <span class="icon-label">Resume.pdf</span>
+        <span class="icon-label">Resume.html</span>
       </button>
       <button class="icon" type="button" data-window="contact" aria-label="Open contact section">
         <span class="icon-emoji" aria-hidden="true"><i class="icofont-envelope-open"></i></span>
@@ -773,9 +924,9 @@
       </div>
     </section>
 
-    <section class="window hidden" id="window-resume" style="left: 154px; top: 86px; width: min(780px, calc(100vw - 120px));" aria-labelledby="title-resume">
+    <section class="window hidden" id="window-resume" style="left: 130px; top: 76px; width: min(900px, calc(100vw - 110px));" aria-labelledby="title-resume">
       <div class="window-header">
-        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-pdf"></i></div><div class="window-title" id="title-resume">Resume.pdf</div></div>
+        <div class="window-title-wrap"><div class="window-icon" aria-hidden="true"><i class="icofont-file-document"></i></div><div class="window-title" id="title-resume">Resume.html</div></div>
         <div class="window-controls">
           <button class="ctrl min" type="button" data-action="minimize" aria-label="Minimize Resume"></button>
           <button class="ctrl max" type="button" data-action="focus" aria-label="Focus Resume"></button>
@@ -783,16 +934,104 @@
         </div>
       </div>
       <div class="window-body">
-        <div class="resume-card">
-          <p class="eyebrow">Public Resume</p>
-          <h2 class="hero-name" style="font-size:28px;">Deserez Krentz</h2>
-          <p class="hero-sub">Creative Systems Developer</p>
-          <p>Privacy-safe PDF resume with email and GitHub only. It highlights long-term coding experience, bot and web projects, AI evaluation, technical writing, documentation-heavy work, database workflows, and customer-facing problem solving.</p>
-          <div class="link-row">
-            <a class="file-link" href="./resume.pdf" target="_blank" rel="noreferrer">Open Resume PDF</a>
-            <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
-          </div>
+        <div class="resume-actions">
+          <button class="file-link" type="button" id="print-resume">Print / Save PDF</button>
+          <a class="file-link" href="mailto:deserezkrentz999@outlook.com">Email Me</a>
         </div>
+        <article class="resume-sheet" aria-label="Deserez Krentz coded resume">
+          <header class="resume-head">
+            <div>
+              <h2 class="resume-name">Deserez Krentz</h2>
+              <p class="resume-role">Creative Systems Developer</p>
+            </div>
+            <div class="resume-contact">
+              <a href="mailto:deserezkrentz999@outlook.com">deserezkrentz999@outlook.com</a>
+              <a href="https://github.com/deserez" target="_blank" rel="noreferrer">github.com/deserez</a>
+              <span>deserez.github.io</span>
+            </div>
+          </header>
+
+          <section class="resume-section">
+            <h3>Profile</h3>
+            <p>Self-taught developer, writer, and digital systems builder with about twenty years of coding and writing experience. Builds Discord bots, custom web layouts, AI-style assistant workflows, documentation-heavy systems, and polished community tools. Strong at turning complex rules, user needs, and operational workflows into clear, usable experiences.</p>
+          </section>
+
+          <section class="resume-section">
+            <h3>Featured Projects</h3>
+            <div class="resume-grid">
+              <div class="resume-item">
+                <h4>Fisto Unit</h4>
+                <p class="resume-meta">Node.js / Discord.js / SQLite</p>
+                <p>Fallout-inspired Discord RPG bot with inventory systems, caps economy, perks, shops, raids, and player progression.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Hashirama</h4>
+                <p class="resume-meta">AI-style assistant / Discord workflows</p>
+                <p>Assistant concept for the Naruto Nindo roleplay community, focused on rules guidance, handbook navigation, lore support, and structured conversational help.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Lunaria</h4>
+                <p class="resume-meta">Mobile product design / UX writing</p>
+                <p>Cycle, fertility, and pregnancy tracking app concept centered on supportive UX, privacy-minded flows, and polished interface direction.</p>
+              </div>
+              <div class="resume-item">
+                <h4>Nindo Web / Forum Design</h4>
+                <p class="resume-meta">HTML / CSS / community customization</p>
+                <p>Custom layouts, templates, and immersive styling for roleplay communities, balancing atmosphere with readable structure.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>Experience</h3>
+            <div class="resume-item">
+              <h4>Broker / Customer Service Representative</h4>
+              <p class="resume-meta">Cole International</p>
+              <ul class="resume-list">
+                <li>Managed documentation-heavy workflows and internal database records with attention to accuracy, compliance, and traceability.</li>
+                <li>Reviewed client and shipment information, resolved discrepancies, and communicated clearly across customer and internal channels.</li>
+                <li>Built long-term client trust through organized follow-up, practical problem solving, and calm handling of time-sensitive issues.</li>
+                <li>Applied analytical thinking in a high-detail environment where written clarity, accuracy, and process discipline mattered daily.</li>
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Manager</h4>
+              <p class="resume-meta">New Orleans Pizza</p>
+              <ul class="resume-list">
+                <li>Oversaw daily operations, scheduling, inventory, reporting, cash procedures, and team coordination.</li>
+                <li>Trained new staff and maintained reliable service standards in a fast-moving customer-facing environment.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="resume-section">
+            <h3>Skills</h3>
+            <ul class="resume-skill-cloud" aria-label="Resume skills">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>JavaScript</li>
+              <li>Node.js</li>
+              <li>Discord.js</li>
+              <li>SQLite</li>
+              <li>GitHub</li>
+              <li>Debugging</li>
+              <li>Prompt Engineering</li>
+              <li>AI Evaluation</li>
+              <li>Technical Writing</li>
+              <li>Documentation</li>
+              <li>Community UX</li>
+              <li>Creative Systems</li>
+            </ul>
+          </section>
+
+          <section class="resume-section">
+            <h3>Education</h3>
+            <div class="resume-item">
+              <h4>High School Diploma</h4>
+              <p class="resume-meta">Simcoe Composite High School</p>
+            </div>
+          </section>
+        </article>
       </div>
     </section>
 
@@ -883,6 +1122,11 @@
 
     document.querySelectorAll(".icon[data-window]").forEach(icon => {
       icon.addEventListener("click", () => openWindow(icon.dataset.window));
+    });
+
+    document.getElementById("print-resume")?.addEventListener("click", () => {
+      openWindow("resume");
+      window.print();
     });
 
     windows.forEach(win => {
